@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 内置对象</title>
+</head>
+<body>
+    <script>
+        // Math 对象
+        console.log(Math.PI);
+        console.log(Math.floor(3.14));
+        console.log(Math.ceil(3.14));
+        console.log(Math.round(3.14));
+        console.log(Math.random());
+
+        // Date 对象
+        var date = new Date();
+        console.log(date);
+        console.log(date.getDate());
+        console.log(date.getFullYear());
+        console.log(date.getMonth());
+        console.log(date.getDay());
+        console.log(date.getHours());
+        console.log(date.getMinutes());
+        console.log(date.getSeconds());
+        console.log(date.valueOf());
+        console.log(date.getTime());
+        console.log(+ date);
+        
+        // Array 对象
+        // push()插入元素
+        var array = new Array();
+        array.push(1);
+        console.log(array);
+        array.push(2, 3);
+        console.log(array);
+
+        // unshift()插入元素
+        array.unshift(0);
+        console.log(array);
+        array.unshift(-1, -2);
+        console.log(array);
+
+        // slipce()添加元素或者删除元素
+        array.splice(0, 1, -3);
+        console.log(array);
+        array.splice(2, 0, -1);
+        console.log(array);
+
+        // concat()连接两个数组，也可用于数组添加元素
+        console.log(array.concat([4, 5]));
+        console.log(array);
+        console.log(array.concat(4, 5));
+        console.log(array);
+
+        // slice()截取子数组
+        console.log(array.slice(0, 2));
+        console.log(array);
+
+        // pop()删除数组最后一个元素
+        array.pop();
+        console.log(array);
+
+        // shift()删除数组第一个元素
+        array.shift();
+        console.log(array);
+
+        // indexOf()检索数组中是否含有某个元素
+        console.log(array.indexOf(0));
+        console.log(array.indexOf(10));
+        console.log(array.lastIndexOf(1));
+        console.log(array.lastIndexOf(10));
+
+        // reverse
+        console.log(array.reverse());
+        console.log(array);
+
+        // sort
+        console.log(array.sort((a, b) => {
+            return a - b;
+        }));
+        console.log(array.sort((a, b) => {
+            return b - a;
+        }));
+
+        // map()、fliter()、reduce()
+        var mapA = array.map((value) => {
+            return value.toString();
+        });
+        console.log(mapA);
+        console.log(array);
+        var filterA = array.filter((value) => {
+            return value > 0;
+        });
+        console.log(filterA);
+        console.log(array);
+        var reduceA = array.reduce(function (previousValue, currentValue) {
+            return previousValue + currentValue;
+        });
+        console.log(reduceA);
+        console.log(array);
+
+        console.log(array.toString());
+        console.log(array.join(','));
+
+        // 基本包装类型
+        var temp = new String(1)
+        var str = temp;
+        temp = null;
+
+        var v = '1'
+        console.log(typeof v); // tring
+        console.log(typeof new String(v)); // object
+        v = true;
+        console.log(typeof(v)); // boolean
+        console.log(typeof(new Boolean(v))); // object
+        v = 1;
+        console.log(typeof(v)); //number
+        console.log(typeof(new Number(v))); // object
+        
+        // 字符串对象
+        // 常用方法
+        var s = 'abcdefg'
+        console.log(s.split('c'));
+        console.log(s);
+
+        console.log(s.charAt(3));
+        console.log(s);
+
+        console.log(s.concat('1', '2'));
+        console.log(s);
+
+        console.log(s.slice(0, 2));
+        console.log(s);
+        console.log(s.substring(0, 2));
+        console.log(s);
+        console.log(s.substr(0, 2));
+        console.log(s);
+
+        s = '123321';
+        console.log(s.indexOf(1));
+        console.log(s.lastIndexOf(1));
+
+        s = '  123  2 ';
+        console.log(s.trim());
+        console.log(s);
+        console.log(s.trimStart());
+        console.log(s.trimEnd());
+        console.log(s.trimLeft());
+        console.log(s.trimRight());
+        console.log(s);
+
+        s = 'aBc'
+        console.log(s.toLocaleUpperCase());
+        console.log(s);
+        console.log(s.toLocaleLowerCase());
+        console.log(s);
+
+        s = '123321';
+        console.log(s.replace('1', 'a'));
+        console.log(s);
+        console.log(s.replaceAll('1', 'a'));
+        console.log(s);
+
+        // 参数传递
+        function fn1(p) {
+            p++;
+            console.log(p);
+        }
+        var n = 1;
+        fn1(n);
+        console.log(n);
+
+        var person = {
+            name: '张三'
+        };
+        function fn2(person) {
+            console.log(person.name);
+            person.name = '李四';
+            console.log(person.name);
+        }
+        console.log(person.name);
+        fn2(person);
+        console.log(person.name);
+    </script>
+</body>
+</html>

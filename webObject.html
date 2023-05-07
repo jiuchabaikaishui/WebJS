@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 对象</title>
+</head>
+<body>
+    <script>
+        // 字面量创建对象
+        var obj = {
+            description: function () {
+                console.log(this.name + this.age + this.sex);
+            },
+            name: '高启强',
+            age: '40',
+            sex: '男',
+        };
+        obj.description();
+
+        // new Object 创建对象
+        var obj1 = new Object();
+        obj1.name = '高启兰';
+        obj1.age = '24';
+        obj1.sex = '女';
+        obj1.description = function () {
+            console.log(this.name + this.age + this.sex);
+        };
+        obj1.description();
+
+        // 构造函数创建对象
+        function People(name, age, sex) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+            this.description = function () {
+                console.log(this.name + this.age + this.sex);
+            }
+        }
+        var people = new People('孟玉', '22', '女');
+        people.description();
+
+        // 使用对象
+        console.log(people.name);
+        console.log(people['name']);
+        people.description();
+
+        // 遍历对象属性
+        for (var key in people) {
+            console.log(typeof(key));
+            console.log(key + ': ' + people[key]);
+        }
+    </script>
+</body>
+</html>

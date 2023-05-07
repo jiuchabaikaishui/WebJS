@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 体验</title>
+
+    <script src="js/jsFirst.js"></script>
+</head>
+<body>
+    <input type="button" value="行内式 JS" onclick="alert('打死你')">
+    <input type="button" value="内嵌式 JS" id="second">
+    <input type="button" value="内嵌式 JS" id="third"><br />
+    <input type="button" value="警示框" id="alert">
+    <input type="button" value="打印" id="log">
+    <input type="button" value="输入框" id="prompt">
+    <script>
+        document.querySelector('#second').onclick = function() {
+            // 我是注释
+            /* 我是
+            多行
+            注释 */
+            alert('hello, world!');
+        };
+        document.querySelector('#alert').onclick = function() {
+            alert('我是警示框');
+        };
+        document.querySelector('#log').onclick = function() {
+            console.log('我是log打印');
+        };
+        document.querySelector('#prompt').onclick = function() {
+            prompt('我是输入框');
+        };
+    </script>
+</body>
+</html>

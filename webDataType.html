@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 数据类型</title>
+</head>
+<body>
+    <script>
+        // 最大值
+        console.log(Number.MAX_VALUE);
+        // 最小值
+        console.log(Number.MIN_VALUE);
+        // 正负无穷
+        console.log(Infinity);
+        console.log(-Infinity);
+        // 非数值
+        console.log(NaN);
+
+        // 判断是否不是数值
+        console.log(isNaN(5));
+
+        // 字符串拼接
+        var a = 'a', b = 'b';
+        console.log(a + b);
+
+        // 字符串长度
+        console.log('abc'.length);
+
+        // 布尔相加
+        console.log(true + 1);
+        console.log(false + 1);
+
+        // Undefined
+        console.log(1 + undefined);
+        console.log('1' + undefined);
+        console.log(true + undefined);
+
+        // null
+        console.log(1 + null);
+        console.log('1' + null);
+        console.log(true + null);
+
+        // 检测数据类型
+        console.log(typeof 1);
+        console.log(typeof '1');
+        console.log(typeof true);
+        console.log(typeof undefined);
+        console.log(typeof null);
+
+        // 转换为字符串
+        console.log(toString(1));
+        console.log(toString(undefined));
+        console.log(toString(null));
+        console.log(toString(true));
+        console.log(toString(false));
+        console.log(String(1));
+        console.log(String(undefined));
+        console.log(String(null));
+        console.log(String(true));
+        console.log(String(false));
+        console.log('1' + 1);
+        console.log('1' + undefined);
+        console.log('1' + null);
+        console.log('1' + true);
+        console.log('1' + false);
+
+        // 转换为数字
+        console.log(parseInt(1));
+        console.log(parseFloat(1));
+        console.log(Number(1));
+        console.log(parseInt(undefined));
+        console.log(parseFloat(undefined));
+        console.log(Number(undefined));
+        console.log(parseInt(null));
+        console.log(parseFloat(null));
+        console.log(Number(null));
+        console.log(parseInt(true));
+        console.log(parseFloat(true));
+        console.log(Number(true));
+        console.log(parseInt(false));
+        console.log(parseFloat(false));
+        console.log(Number(false));
+        console.log('10' * 2);
+
+        // 转换为布尔
+        console.log(Boolean(0));
+        console.log(Boolean(1));
+        console.log(Boolean(''));
+        console.log(Boolean('0'));
+        console.log(Boolean('1'));
+        console.log(Boolean('啊'));
+        console.log(Boolean(undefined));
+        console.log(Boolean(null));
+    </script>
+</body>
+</html>

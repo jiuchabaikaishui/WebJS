@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 预解析</title>
+</head>
+<body>
+    <script>
+        // console.log(num); // num is not defined
+
+        console.log(num1); // undefined
+        var num1 = 10;
+
+        fn();
+        function fn() {
+            console.log('打印');
+        }
+
+        fn1(); // fn1 is not a function
+        var fn1 = function () {
+            console.log('打印1');
+        }
+    </script>
+</body>
+</html>

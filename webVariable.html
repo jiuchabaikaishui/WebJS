@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 变量</title>
+</head>
+<body>
+    <script>
+        // 申明变量
+        var age;
+        // 赋值
+        age = 10;
+
+        // 初始化
+        var sex = '男';
+
+        // 欢迎 案例
+        var name = prompt('请输入姓名');
+        alert('你好,'+name+'!')
+
+        // 一次申明多个变量
+        var a, b;
+
+        // 交换变量值 案例
+        var one = 1, two = 2, temp;
+        temp = one;
+        one = two;
+        two = temp;
+        console.log(one);
+        console.log(two);
+
+        // 使用只申明不赋值的变量
+        console.log(a); // undefined
+        
+        // 使用不声明只赋值的变量
+        c = 10;
+        console.log(c); // 10
+
+        // 使用不申明不赋值的变量
+        console.log(d); // caught ReferenceError:
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 流程控制</title>
+</head>
+<body>
+    <script>
+        var a = 1;
+        if (a > 0 ) {
+            console.log('正数');
+        } else if (a == 0) {
+            console.log('0');
+        } else {
+            console.log('负数');
+        }
+
+        switch (a) {
+            case 1: 
+                console.log('我是');
+                console.log(a);
+                break;
+            default: 
+                console.log('a 不是 1');
+        }
+
+        switch (a) {
+            case 1:
+                console.log('我是1');
+            case 2:
+                console.log('我是2');
+        
+            default:
+                console.log('我不知道我是几');
+                break;
+        }
+
+        console.log(a > 1 ? '我大于1' : '我不大于1');
+
+        for (var i = 0; i < 10; i++) {
+            console.log('第' + i + '次');
+        }
+
+        var i = 0;
+        do {
+            console.log('第' + i + '次');
+            i++;
+        } while (i < 10);
+
+        i = 0;
+        while (i < 10) {
+            console.log('第' + i + '次');
+            i++;
+        }
+    </script>
+</body>
+</html>

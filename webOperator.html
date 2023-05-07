@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 运算符</title>
+</head>
+<body>
+    <script>
+        // 算术运算
+        console.log(1 + 1);
+        console.log(1 + 1.1);
+        console.log(0.1*100);
+
+        // 递增、递减
+        var value = 1;
+        console.log(++value);
+        console.log(value);
+        console.log(value++);
+        console.log(value);
+        value = 10;
+        console.log(++value + value++);
+        value = 10;
+        console.log(value++ + ++value);
+
+        // 比较
+        console.log(1 == '1');
+        console.log(1 != '1');
+        console.log(1 === '1');
+        console.log(1 !== '1');
+
+        // 逻辑
+        console.log(1 && 123);
+        console.log(0 && 123);
+        console.log(true && 123);
+        console.log(false && 123);
+        console.log(1 || 123);
+        console.log(0 || 123);
+        console.log(true || 123);
+        console.log(false || 123);
+
+        // 赋值
+        value = 10;
+        console.log(value);
+        value += 10;
+        console.log(value);
+        value -= 10;
+        console.log(value);
+        value *= 10;
+        console.log(value);
+        value /= 10;
+        console.log(value);
+        value %= 10;
+        console.log(value);
+
+        // 赋值表达式的值为最终赋值的那个值
+        console.log(value = 10);
+    </script>
+</body>
+</html>

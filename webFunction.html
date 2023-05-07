@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 函数</title>
+</head>
+<body>
+    <script>
+        // 函数参数
+        function sum(num1, num2) {
+            console.log(num1 + num2);
+
+            var result = 0;
+            for (var i = 0; i < arguments.length; i++) {
+                result += arguments[i];
+            }
+            console.log(result);
+        }
+        sum(1, 2);
+        sum(1);
+        sum(1, 2, 3);
+
+        // 函数返回值
+        function sum1(num1, num2) {
+            return num1 + num2;
+        }
+        console.log(sum1(1, 2));
+
+        function sum2(num1, num2) {
+            return 1, num1 + num2;
+        }
+        console.log(sum2(1, 2));
+
+        // arguments
+        function sum3() {
+            var result = 0;
+            for (var i = 0; i < arguments.length; i++) {
+                result += arguments[i];
+            }
+
+            return result;
+        }
+        console.log(sum3(1, 2, 3));
+
+        // 函数调用函数
+        function fn1() {
+            console.log('1');
+            fn2();
+        };
+        function fn2() {
+            console.log(2);
+        }
+        fn1();
+
+        // 函数在函数申明前后都可以调用
+        fn3();
+        function fn3() {
+            console.log('fn3');
+        }
+        fn3();
+
+        // 函数作为值进行、传递与返回
+        var func = fn3;
+        fn3();
+        console.log(func);
+
+        function fn4(func) {
+            func();
+            return function () {
+                console.log('fn4');
+            };
+        }
+        fn4(fn3)();
+
+        // 匿名函数
+        var func1 = function() {
+            console.log('匿名函数');
+        };
+        func1();
+
+        //  匿名函数简写
+        var func2 = (value) => {
+            return value * value
+        };
+        console.log(func2(10));
+    </script>
+</body>
+</html>
