@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表格变色案例</title>
+
+    <style>
+        table {
+            margin: 100px auto;
+            width: 800px;
+            text-align: center;
+            font-size: 14px;
+            /* 合并边框 */
+            border-collapse: collapse;
+        }
+        tr {
+            height: 30px;
+        }
+        thead tr {
+            height: 30px;
+            background-color: skyblue;
+        }
+        tbody td {
+            border-bottom: 1px solid #eee;
+            font-size: 12px;
+            color: blue;
+        }
+        .pink {
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>代码</th>
+                <th>名称</th>
+                <th>最新净值</th>
+                <th>累计净值</th>
+                <th>单位净值</th>
+                <th>增长率</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+            </tr>
+            <tr>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+            </tr>
+            <tr>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+            </tr>
+            <tr>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+            </tr>
+            <tr>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+            </tr>
+            <tr>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+                <td>123456</td>
+            </tr>
+        </tbody>
+
+        <script>
+            var trs = document.querySelector('tbody').querySelectorAll('tr');
+            for(var i = 0; i < trs.length; i++) {
+                trs[i].onmouseover = function() {
+                    this.className = 'pink';
+                }
+                trs[i].onmouseout = function() {
+                    this.className = '';
+                }
+            }
+        </script>
+    </table>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表格全选案例</title>
+
+    <style>
+        table {
+            margin: 100px auto;
+            width: 500px;
+            text-align: center;
+            /* 合并边框 */
+            border-collapse: collapse;
+        }
+        thead tr {
+            background-color: skyblue;
+            height: 38px;
+        }
+        tbody tr {
+            height: 34px;
+        }
+        th, td {
+            border: 1px solid #eee
+        }
+        tbody tr:hover {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th><input type="checkbox"></th>
+                <th>商品</th>
+                <th>价格</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>iPhone 14</td>
+                <td>6000</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>iPhone 14 Plus</td>
+                <td>7000</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>iPhone 14 Pro</td>
+                <td>8000</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>iPhone 14 Pro Max</td>
+                <td>9000</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        var all = document.querySelector('thead').querySelector('input');
+        var inputs = document.querySelector('tbody').getElementsByTagName('input');
+        all.onclick = function() {
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].checked = this.checked;
+            }
+        }
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].onclick = function() {
+                for (var i = 0; i < inputs.length; i++) {
+                    if (!inputs[i].checked) {
+                        all.checked = false;
+                        return;
+                    }
+                    all.checked = true;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

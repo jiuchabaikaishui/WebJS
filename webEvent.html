@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 事件</title>
+
+    <style>
+        .content {
+            margin: 0 auto;
+            width: 70%;
+            background-color: antiquewhite;
+            padding: 10px;
+        }
+        .content > img {
+            width: 200px;
+        }
+        .box {
+            margin: 20px 0;
+            padding: 10px;
+            width: 300px;
+            box-sizing: border-box;
+            position: relative;
+            border-bottom: 1px solid darkgray;
+        }
+        #pwd {
+            padding: 0;
+            width: 246px;
+            height: 40px;
+            outline: none;
+            border: none;
+            box-sizing: border-box;
+            font-size: 20px;
+        }
+        .box > a > img {
+            position: absolute;
+            right: 10px;
+            top: 18px;
+            height: 24px;
+        }
+
+        .closeQrcode {
+            display: flex;
+        }
+        .close {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            border: 1px solid lightgray ;
+            box-sizing: border-box;
+        }
+        .qrCode {
+            border: 1px solid lightgray;
+            width: 120px;
+        }
+        .qrCode > p {
+            margin: 0;
+            text-align: center;
+            line-height: 30px;
+        }
+        .qrCode > img {
+            display: block;
+            margin: 10px auto;
+            width: 100px;
+        }
+        .pic {
+            width: 400px;
+            height: 300px;
+            display: flex;
+            flex-flow: row wrap;
+        }
+        .item {
+            width: 100px;
+            height: 100px;
+            border: 1px solid lightgray;
+            box-sizing: border-box;
+        }
+        .item .image {
+            width: 24px;
+            height: 24px;
+            background-image: url(images/sprite.png);
+            margin: 18px auto;
+        }
+        .item p {
+            margin: 0;
+            text-align: center;
+        }
+
+        .className {
+            text-decoration-color: antiquewhite;
+            margin-top: 20px;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+        .changeClass {
+            margin-top: 30px;
+            width: 150px;
+            height: 150px;
+            color: orange;
+            background-color: cyan;
+        }
+
+        .message {
+            display: inline-block;
+            background: url(images/mess.png) no-repeat left center;
+            padding-left: 20px;
+        }
+        .wrong {
+            background-image: url(images/wrong.png);
+            color: red;
+        }
+        .right {
+            background-image: url(images/right.png);
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h2>事件与元素操作</h2>
+
+        <button>点击</button>
+        <br /><br />
+        
+        <button id="time">显示当前时间</button>
+        <p>某个时间</p>
+    
+        <div class="div1"></div>
+        <div class="div2"></div>
+        <br>
+    
+        <button id="ldh">刘德华</button>
+        <button id="zxy">张学友</button>
+        <br><br>
+        <img src="images/ldh.jpg" alt="刘德华" title="刘德华">
+        <br><br>
+    
+        <button class="btn1">禁止输入</button>
+        <input type="text" value="请输入姓名" class="text1">
+    
+        <div class="box">
+            <input type="password" name="" id="pwd">
+            <a href="jsvascript:;"><img src="images/close.png" alt="" id="eye"></a>
+        </div>
+
+        <h3>关闭二维码示例</h3>
+        <div class="closeQrcode">
+            <div class="close">x</div>
+            <div class="qrCode">
+                <p>淘宝二维码</p>
+                <img src="images/tao.png" alt="">
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+
+        <h3>循环精灵图背景示例</h3>
+        <div class="pic">
+            <div class="item">
+                <div class="image"></div>
+                <p>1</p>
+            </div>
+            <div class="item">
+                <div class="image"></div>
+                <p>2</p>
+            </div>
+            <div class="item">
+                <div class="image"></div>
+                <p>3</p>
+            </div>
+            <div class="item">
+                <div class="image"></div>
+                <p>4</p>
+            </div>
+            <div class="item">
+                <div class="image"></div>
+                <p>5</p>
+            </div>
+            <div class="item">
+                <div class="image"></div>
+                <p>6</p>
+            </div>
+            <div class="item">
+                <div class="image"></div>
+                <p>7</p>
+            </div>
+            <div class="item">
+                <div class="image"></div>
+                <p>8</p>
+            </div>
+            <div class="item">
+                <div class="image"></div>
+                <p>9</p>
+            </div>
+            <div class="item">
+                <div class="image"></div>
+                <p>10</p>
+            </div>
+            <div class="item">
+                <div class="image"></div>
+                <p>11</p>
+            </div>
+            <div class="item">
+                <div class="image"></div>
+                <p>12</p>
+            </div>
+        </div>
+
+        <h3>文本显示隐藏案例</h3>
+        <div class="search">
+            <input type="search" name="" id="searchBar" value="手机">
+        </div>
+
+        <h3>className使用示例</h3>
+        <div class="className">className</div>
+
+        <h3>密码输入案例</h3>
+        <div class="register">
+            <input type="password" class="ipt">
+            <p class="message">请输入6~16位密码</p>
+        </div>
+
+        <h3>排他思想</h3>
+        <button>按钮</button>
+        <button>按钮</button>
+        <button>按钮</button>
+        <button>按钮</button>
+        <button>按钮</button>
+
+        <h3><a href="webBaidu.html">百度换肤案例</a></h3>
+        <h3><a href="webTableColor.html">表格变色案例</a></h3>
+        <h3><a href="webTableSelecAll.html">表格全选案例</a></h3>
+    </div>
+    <script>
+        // 事件
+        var btn = document.querySelector('button')
+        btn.onclick = function () {
+            alert('弹框');
+        };
+
+        // 改变元素内容
+        var timeBtn = document.getElementById('time')
+        timeBtn.onclick = function () {
+            var pLabel = document.getElementsByTagName('p')[0]
+            let value = getTime()
+            pLabel.innerText = value
+        }
+        function getTime() {
+            var date = new Date()
+            var year = date.getFullYear()
+            var month = date.getMonth() + 1
+            var day = date.getDate()
+            return year + '年' + month + '月' + day + '日'
+        }
+        console.log(getTime());
+
+        var value = '<strong>今天是</strong>' + getTime();
+        var div1 = document.querySelector('.div1');
+        var div2 = document.querySelector('.div2');
+        div1.innerText = value;
+        div2.innerHTML = value;
+
+        var ldh = document.getElementById('ldh');
+        var zxy = document.getElementById('zxy');
+        var imgLabel = document.querySelector('img');
+        ldh.onclick = function () {
+            imgLabel.src = 'images/ldh.jpg';
+            imgLabel.title = '刘德华';
+            imgLabel.alt = '刘德华';
+        }
+        zxy.onclick = function () {
+            imgLabel.src = 'images/zxy.jpg';
+            imgLabel.title = '张学友';
+            imgLabel.alt = '张学友';
+        }
+
+        var btn1 = document.querySelector('.btn1')
+        var text1 = document.querySelector('.text1')
+        btn1.onclick = function () {
+            text1.disabled = true;
+        }
+
+        var pwd = document.getElementById('pwd');
+        var eye = document.getElementById('eye');
+        var flag = true;
+        eye.onclick = function () {
+            if (flag) {
+                flag = false;
+                pwd.type = 'text';
+                eye.src = 'images/open.png';
+            } else {
+                flag = true;
+                pwd.type = 'password';
+                eye.src = 'images/close.png';
+            }
+        }
+
+        var close = document.querySelector('.close')
+        var code = document.querySelector('.closeQrcode')
+        close.onclick = function () {
+            code.style.display = 'none';
+        }
+
+        var imageLabels = document.getElementsByClassName('image')
+        for (var i = 0; i < imageLabels.length; i++) {
+            var imageLabel = imageLabels[i]
+            var yPosition = (24 + 20)*i
+            imageLabel.style.backgroundPosition = '0 -' + yPosition + 'px'
+        }
+
+        var searchBar = document.getElementById('searchBar')
+        searchBar.onfocus = function () {
+            this.value = null;
+        }
+        searchBar.onblur = function () {
+            this.value = '手机';
+        }
+
+        var className = document.querySelector('.className');
+        console.log(className);
+        className.onclick = function () {
+            console.log('xxxx');
+            this.className = 'changeClass';
+        }
+
+        var ipt = document.querySelector('.ipt')
+        var msg = document.querySelector('.message')
+        ipt.onblur = function () {
+            if (this.value.length < 6 || this.value.length > 16) {
+                msg.className = 'message wrong';
+                msg.innerHTML = '您输入的位数不对，要求6~16位！'
+            } else {
+                msg.className = 'message right';
+                msg.innerHTML = '密码输入正确！'
+            }
+        }
+
+        var btns = document.getElementsByTagName('button')
+        for(var i = 0; i < btns.length; i++) {
+            btns[i].onclick = function() {
+                for(var i = 0; i < btns.length; i++) {
+                    btns[i].style.backgroundColor = '';
+                }
+                this.style.backgroundColor = 'pink';
+            }
+        }
+    </script>
+</body>
+</html>

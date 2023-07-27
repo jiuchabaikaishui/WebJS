@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 获取元素</title>
+</head>
+<body>
+    <div id="time">时间</div>
+
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+
+    <ul id="nav">
+        <li>一</li>
+        <li>二</li>
+        <li>三</li>
+        <li>四</li>
+        <li>五</li>
+    </ul>
+
+    <script>
+        // 根据ID获取：
+        var e = document.getElementById('time');
+        console.log(e);
+        console.log(typeof e);
+        console.dir(e);
+
+        // 根据标签名获取元素
+        var eles = document.getElementsByTagName('li');
+        console.log(eles);
+        console.log(typeof eles);
+        console.log(eles[0]);
+
+        var nav = document.getElementById('nav');
+        console.log(nav);
+        console.log(nav.getElementsByTagName('li'));
+
+        // 获取特殊元素
+        console.log(document.body);
+        console.log(document.documentElement);
+    </script>
+</body>
+</html>
