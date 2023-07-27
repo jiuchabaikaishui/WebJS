@@ -116,6 +116,13 @@
             background-image: url(images/right.png);
             color: green;
         }
+
+        div#custom {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -223,36 +230,44 @@
         </div>
 
         <h3>排他思想</h3>
-        <button>按钮</button>
-        <button>按钮</button>
-        <button>按钮</button>
-        <button>按钮</button>
-        <button>按钮</button>
+        <button class="other">按钮</button>
+        <button class="other">按钮</button>
+        <button class="other">按钮</button>
+        <button class="other">按钮</button>
+        <button class="other">按钮</button>
 
         <h3><a href="webBaidu.html">百度换肤案例</a></h3>
         <h3><a href="webTableColor.html">表格变色案例</a></h3>
         <h3><a href="webTableSelecAll.html">表格全选案例</a></h3>
+
+        <h3>自定义属性</h3>
+        <div id="custom" data-index="1"></div>
+        <button id="getB">获取属性</button>
+        <button id="setB">设置属性</button>
+        <button id="removeB">移除属性</button>
+
+        <h3><a href="webTabSwitch.html">tab栏切换案例</a></h3>
     </div>
     <script>
         // 事件
-        var btn = document.querySelector('button')
+        var btn = document.querySelector('button');
         btn.onclick = function () {
             alert('弹框');
         };
 
         // 改变元素内容
-        var timeBtn = document.getElementById('time')
+        var timeBtn = document.getElementById('time');
         timeBtn.onclick = function () {
-            var pLabel = document.getElementsByTagName('p')[0]
-            let value = getTime()
-            pLabel.innerText = value
+            var pLabel = document.getElementsByTagName('p')[0];
+            let value = getTime();
+            pLabel.innerText = value;
         }
         function getTime() {
-            var date = new Date()
-            var year = date.getFullYear()
-            var month = date.getMonth() + 1
-            var day = date.getDate()
-            return year + '年' + month + '月' + day + '日'
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+            return year + '年' + month + '月' + day + '日';
         }
         console.log(getTime());
 
@@ -276,8 +291,8 @@
             imgLabel.alt = '张学友';
         }
 
-        var btn1 = document.querySelector('.btn1')
-        var text1 = document.querySelector('.text1')
+        var btn1 = document.querySelector('.btn1');
+        var text1 = document.querySelector('.text1');
         btn1.onclick = function () {
             text1.disabled = true;
         }
@@ -297,17 +312,17 @@
             }
         }
 
-        var close = document.querySelector('.close')
-        var code = document.querySelector('.closeQrcode')
+        var close = document.querySelector('.close');
+        var code = document.querySelector('.closeQrcode');
         close.onclick = function () {
             code.style.display = 'none';
         }
 
-        var imageLabels = document.getElementsByClassName('image')
+        var imageLabels = document.getElementsByClassName('image');
         for (var i = 0; i < imageLabels.length; i++) {
-            var imageLabel = imageLabels[i]
-            var yPosition = (24 + 20)*i
-            imageLabel.style.backgroundPosition = '0 -' + yPosition + 'px'
+            var imageLabel = imageLabels[i];
+            var yPosition = (24 + 20)*i;
+            imageLabel.style.backgroundPosition = '0 -' + yPosition + 'px';
         }
 
         var searchBar = document.getElementById('searchBar')
@@ -325,19 +340,19 @@
             this.className = 'changeClass';
         }
 
-        var ipt = document.querySelector('.ipt')
-        var msg = document.querySelector('.message')
+        var ipt = document.querySelector('.ipt');
+        var msg = document.querySelector('.message');
         ipt.onblur = function () {
             if (this.value.length < 6 || this.value.length > 16) {
                 msg.className = 'message wrong';
                 msg.innerHTML = '您输入的位数不对，要求6~16位！'
             } else {
                 msg.className = 'message right';
-                msg.innerHTML = '密码输入正确！'
+                msg.innerHTML = '密码输入正确！';
             }
         }
 
-        var btns = document.getElementsByTagName('button')
+        var btns = document.getElementsByClassName('other')
         for(var i = 0; i < btns.length; i++) {
             btns[i].onclick = function() {
                 for(var i = 0; i < btns.length; i++) {
@@ -345,6 +360,22 @@
                 }
                 this.style.backgroundColor = 'pink';
             }
+        }
+
+        var custom = document.getElementById('custom');
+        var getB = document.getElementById('getB');
+        var setB = document.getElementById('setB');
+        var removeB = document.getElementById('removeB');
+        getB.onclick = function() {
+            alert('id: ' + custom.id + '; data-index: ' + custom.getAttribute('data-index'));
+        }
+        setB.onclick = function() {
+            custom.id = 'customs';
+            custom.setAttribute('data-index', 2);
+        }
+        removeB.onclick = function() {
+            custom.removeAttribute('id');
+            custom.removeAttribute('data-index');
         }
     </script>
 </body>

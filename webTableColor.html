@@ -93,18 +93,18 @@
                 <td>123456</td>
             </tr>
         </tbody>
-
-        <script>
-            var trs = document.querySelector('tbody').querySelectorAll('tr');
-            for(var i = 0; i < trs.length; i++) {
-                trs[i].onmouseover = function() {
-                    this.className = 'pink';
-                }
-                trs[i].onmouseout = function() {
-                    this.className = '';
-                }
-            }
-        </script>
     </table>
+
+    <script>
+        var trs = document.querySelector('tbody').querySelectorAll('tr');
+        for(var i = 0; i < trs.length; i++) {
+            trs[i].onmouseover = function() {
+                this.className = 'pink';
+            }
+            trs[i].onmouseout = function() {
+                this.className = '';
+            }
+        }
+    </script>
 </body>
 </html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tab栏切换案例</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .tab {
+            margin: 100px auto;
+            width: 70%;
+        }
+        .tab_list {
+            border: 1px solid lightgray;
+            height: 44px;
+            background-color: #f1f1f1;
+        }
+        .tab_list ul li {
+            list-style-type: none;
+            float: left;
+            height: 44px;
+            line-height: 44px;
+            padding: 0 20px;
+            cursor: pointer;
+        }
+        .tab_list .current {
+            background-color: red;
+            cursor: default;
+        }
+
+        .tab_con div {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="tab">
+        <div class="tab_list">
+            <ul>
+                <li class="current">商品介绍</li>
+                <li>规格与包装</li>
+                <li>售后保障</li>
+                <li>商品评价（50000）</li>
+                <li>手机社区</li>
+            </ul>
+        </div>
+        <div class="tab_con">
+            <div style="display: block;">商品介绍内容</div>
+            <div>规格与包装内容</div>
+            <div>售后保障内容</div>
+            <div>商品评价内容</div>
+            <div>手机社区内容</div>
+        </div>
+    </div>
+
+    <script>
+        var lis = document.querySelector('.tab_list').querySelectorAll('li');
+        var divs = document.querySelector('.tab_con').querySelectorAll('div')
+
+        for (var i = 0; i < lis.length; i++) {
+            lis[i].setAttribute('data-index', i)
+            lis[i].onclick = function() {
+                for (var i = 0; i < lis.length; i++) {
+                    lis[i].className = '';
+                }
+                this.className = 'current';
+
+                for (var i = 0; i < divs.length; i++) {
+                    divs[i].style.display = 'none';
+                }
+                var index = this.getAttribute('data-index')
+                divs[index].style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
