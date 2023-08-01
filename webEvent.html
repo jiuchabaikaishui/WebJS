@@ -9,7 +9,7 @@
     <style>
         .content {
             margin: 0 auto;
-            width: 70%;
+            width: 75%;
             background-color: antiquewhite;
             padding: 10px;
         }
@@ -117,7 +117,7 @@
             color: green;
         }
 
-        div#custom {
+        div#custom, #customH5 {
             width: 100px;
             height: 100px;
             background-color: red;
@@ -247,6 +247,11 @@
         <button id="removeB">移除属性</button>
 
         <h3><a href="webTabSwitch.html">tab栏切换案例</a></h3>
+
+        <h3>H5自定义属性</h3>
+        <div id="customH5" data-index="1" data-first-name="a"></div>
+        <button id="getBH5">获取属性</button>
+        <button id="setBH5">设置属性</button>
     </div>
     <script>
         // 事件
@@ -376,6 +381,36 @@
         removeB.onclick = function() {
             custom.removeAttribute('id');
             custom.removeAttribute('data-index');
+        }
+
+        var custom = document.getElementById('custom');
+        var getB = document.getElementById('getB');
+        var setB = document.getElementById('setB');
+        var removeB = document.getElementById('removeB');
+        getB.onclick = function() {
+            alert('id: ' + custom.id + '; data-index: ' + custom.getAttribute('data-index'));
+        }
+        setB.onclick = function() {
+            custom.id = 'customs';
+            custom.setAttribute('data-index', 2);
+        }
+        removeB.onclick = function() {
+            custom.removeAttribute('id');
+            custom.removeAttribute('data-index');
+        }
+
+        var customH5 = document.getElementById('customH5');
+        var getBH5 = document.getElementById('getBH5');
+        var setBH5 = document.getElementById('setBH5');
+        getBH5.onclick = function() {
+            alert('data-index: ' + customH5.getAttribute('data-index') + '; data-first-name: ' + customH5.dataset['firstName']);
+            console.log(customH5.dataset);
+            console.log(customH5.dataset['index']);
+            console.log(customH5.dataset.firstName);
+        }
+        setBH5.onclick = function() {
+            customH5.setAttribute('data-index', 2);
+            customH5.setAttribute('data-first-name', 'b');
         }
     </script>
 </body>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节点操作</title>
+
+    <style>
+        .content {
+            width: 75%;
+            background-color: antiquewhite;
+            margin: 0 auto;
+            padding: 10px;
+        }
+        h2, h3 {
+            padding: 10px;
+            margin: 0;
+        }
+
+        .nav {
+            padding: 0;
+            margin: 0;
+        }
+        .nav > li {
+            float: left;
+            list-style: none;
+            width: 80px;
+            background-color: #f5f5f5;
+            /* height: 44px; */
+            text-align: center;
+            line-height: 44px;
+        }
+        .nav a {
+            text-decoration: none;
+            color: black;
+        }
+        .nav ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            display: none;
+        }
+        .nav ul li {
+            background-color: white;
+            border-left: 1px solid orange;
+            border-right: 1px solid orange;
+            border-bottom: 1px solid orange;
+        }
+        .nav > li:hover {
+            background-color: #eee;
+        }
+        
+        /* 使用css 实现效果 */
+        /* .nav > li:hover ul {
+            display: block;
+        } */
+
+        textarea {
+            outline: none;
+            resize: none;
+            border: 1px solid orangered;
+            padding: 8px;
+            margin: 0;
+            width: 248px;
+            height: 120px;
+        }
+        .textView button {
+            position: relative;
+            bottom: 10px;
+        }
+        .textView ul {
+            width: 280px;
+        }
+        .textView ul a {
+            float: right;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        table {
+            text-align: center;
+            width: 500px;
+            border-collapse: collapse;
+        }
+        thead tr {
+            height: 44px;
+            background-color: #f5f5f5;
+        }
+        tbody tr {
+            height: 34px;
+        }
+        td, th {
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h2>节点操作</h2>
+
+        <h3>父级节点</h3>
+        <div class="demo">
+            <div class="box">
+                <span class="qrCode"></span>
+            </div>
+        </div>
+
+        <h3>子节点</h3>
+        <ul>
+            <li>我是li</li>
+            <li>我是li</li>
+            <li>我是li</li>
+            <li>我是li</li>
+        </ul>
+
+        <h3>下拉菜单案例</h3>
+        <ul class="nav">
+            <li>
+                <a href="">微博</a>
+                <ul>
+                    <li>私信</li>
+                    <li>评论</li>
+                    <li>@我</li>
+                </ul>
+            </li>
+            <li>
+                <a href="">微博</a>
+                <ul>
+                    <li>私信</li>
+                    <li>评论</li>
+                    <li>@我</li>
+                </ul>
+            </li>
+            <li>
+                <a href="">微博</a>
+                <ul>
+                    <li>私信</li>
+                    <li>评论</li>
+                    <li>@我</li>
+                </ul>
+            </li>
+            <div style="clear: both;"></div>
+        </ul>
+
+        <h3>兄弟节点</h3>
+        <div class="brother">兄</div>
+        <span>弟</span>
+
+        <h3>创建、添加节点</h3>
+        <button class="delete">删除</button>
+        <ul class="append">
+            <li>1</li>
+        </ul>
+
+        <h3>留言案例</h3>
+        <div class="textView">
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <button>发布</button>
+            <ul>
+                
+            </ul>
+        </div>
+
+        <h3>复制/克隆节点</h3>
+        <ul class="clone">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+
+        <h3>表格动态生成案例</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>科目</th>
+                    <th>成绩</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h3>动态创建元素的方法</h3>
+        <button class="create">创建</button>
+        <div class="innerStr"></div>
+        <div class="innerArr"></div>
+        <div class="createEle"></div>
+    </div>
+
+    <script>
+        var qrCode = document.querySelector('.qrCode')
+        console.dir(qrCode)
+
+        var ul = document.querySelector('ul')
+        var lis = ul.getElementsByTagName('li')
+        console.log(lis)
+        console.log(ul.childNodes)
+        console.log(ul.childNodes[0].nodeType)
+        console.log(ul.childNodes[1].nodeType)
+        console.log(ul.children)
+
+        console.log(ul.firstChild)
+        console.log(ul.lastChild)
+        console.log(ul.firstElementChild)
+        console.log(ul.lastElementChild)
+        console.log(ul.children[0])
+        console.log(ul.children[ul.children.length - 1])
+
+        var lis = document.querySelector('.nav').children;
+        for (let index = 0; index < lis.length; index++) {
+            const element = lis[index];
+            element.onmouseover = function() {
+                this.children[1].style.display = 'block';
+            }
+            element.onmouseout = function() {
+                this.children[1].style.display = 'none';
+            }
+        }
+
+        let brother = document.querySelector('.brother');
+        console.log(brother.nextSibling);
+        console.log(brother.previousSibling);
+        console.log(brother.nextElementSibling);
+        console.log(brother.previousElementSibling);
+
+        let append = document.querySelector('.append');
+        let li2 = document.createElement('li');
+        li2.innerHTML = '2';
+        append.appendChild(li2);
+        let li3 = document.createElement('li');
+        li3.innerHTML = '3';
+        append.insertBefore(li3, append.children[0]);
+
+        var deleteEle = document.querySelector('.delete');
+        deleteEle.onclick = function() {
+            if (append.children.length > 0) {
+                append.removeChild(append.children[0]);
+            }
+
+            this.disabled = append.children.length == 0;
+        };
+
+        let textDiv = document.querySelector('.textView');
+        let textView = textDiv.querySelector('textarea');
+        let publish = textDiv.querySelector('button');
+        publish.onclick = function() {
+            if (textView.value.length > 0) {
+                let li = document.createElement('li');
+                li.innerHTML = textView.value + '<a href="javascript:;">删除</a>';
+                let ul = textDiv.querySelector('ul');
+                ul.insertBefore(li, ul.children[0]);
+                // ul.appendChild(li)
+                textView.value = null
+
+                let as = textDiv.getElementsByTagName('a');
+                for (let i = 0; i < as.length; i++) {
+                    as[i].onclick = function() {
+                        ul.removeChild(this.parentNode);
+                    };
+                }
+            } else {
+                alert('请输入内容！');
+            }
+        };
+
+        var cloneUl = document.querySelector('.clone');
+        var li = cloneUl.children[0];
+        cloneUl.appendChild(li.cloneNode());
+        cloneUl.insertBefore(li.cloneNode(true), li);
+
+        var datas = [{
+            name: '魏璎珞',
+            project: 'javascrit',
+            score: '100',
+        }, {
+            name: '宏历',
+            project: 'javascrit',
+            score: '99',
+        }, {
+            name: '傅恒',
+            project: 'javascrit',
+            score: '98',
+        }, {
+            name: '明玉',
+            project: 'javascrit',
+            score: '97',
+        }];
+        var tbody = document.querySelector('tbody');
+        for (let index = 0; index < datas.length; index++) {
+            var tr = document.createElement('tr');
+            for (const key in datas[index]) {
+                var td = document.createElement('td');
+                td.innerHTML = datas[index][key];
+                tr.appendChild(td);
+            }
+
+            var td = document.createElement('td');
+            td.innerHTML = '<a href="javascript:;">删除</a>';
+            tr.appendChild(td);
+
+            tbody.appendChild(tr);
+        }
+
+        var as = tbody.getElementsByTagName('a');
+        for (let index = 0; index < as.length; index++) {
+            as[index].onclick = function() {
+                tbody.removeChild(this.parentNode.parentNode);
+            };
+        }
+
+        document.write('<span>a</span>')
+        var create = document.querySelector('.create');
+        create.onclick = function() {
+            document.write('<span>1</span>');
+        }
+
+        var d1 = + new Date();
+        var innerStr = document.querySelector('.innerStr');
+        for (let index = 0; index < 1000; index++) {
+            innerStr.innerHTML = innerStr.innerHTML + '<a href="javascript:;">' + index + '</a>'
+        }
+        var d2 = + new Date();
+        console.log(d2 - d1);
+
+        var d3 = + new Date();
+        var innerArr = document.querySelector('.innerArr');
+        var arr = [];
+        for (let index = 0; index < 1000; index++) {
+            arr.push('<a href="javascript:;">' + index + '</a>')
+        }
+        innerArr.innerHTML = arr.join('');
+        var d4 = + new Date();
+        console.log(d4 - d3);
+
+        var d5 = + new Date();
+        var createEle = document.querySelector('.createEle');
+        for (let index = 0; index < 1000; index++) {
+            let c = document.createElement('a');
+            c.href = 'javascript:;';
+            c.innerText = index;
+            createEle.appendChild(c);
+        }
+        var d6 = + new Date();
+        console.log(d6 - d5);
+    </script>
+    
+</body>
+</html> 

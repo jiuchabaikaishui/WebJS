@@ -62,6 +62,7 @@
         var divs = document.querySelector('.tab_con').querySelectorAll('div')
 
         for (var i = 0; i < lis.length; i++) {
+            // 设置索引
             lis[i].setAttribute('data-index', i)
             lis[i].onclick = function() {
                 for (var i = 0; i < lis.length; i++) {
