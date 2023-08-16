@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件高级</title>
+
+    <style>
+        body {
+            background-color: antiquewhite;
+        }
+        .main {
+            width: 75%;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: white;
+        }
+        .father, .big {
+            width: 150px;
+            height: 150px;
+            background-color: cyan;
+            position: relative;
+        }
+        .son, .small {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            left: 50%; 
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .search {
+            width: 200px;
+            height: 100px;
+        }
+        .con {
+            display: none;
+            width: 100%;
+            line-height: 20px;
+            height: 20px;
+            font-size: 18px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            color: #333;
+            padding: 5px 0;
+            position: relative;
+            margin-bottom: 10px;
+        }
+        .con::before {
+            content: '';
+            position: absolute;
+            border: 8px solid;
+            /* border-style: solid dashed dashed; */
+            border-color: white transparent transparent;
+            left: 18px;
+            top: 28px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h2>事件高级</h2>
+
+        <h3>注册事件</h3>
+        <div class="register">
+            <button>传统注册事件</button>
+            <button>方法监听注册事件</button>
+            <button>attachEvent</button>
+            <button>兼容方案</button>
+        </div>
+
+        <h3>删除事件</h3>
+        <div class="remove">
+            <button>传统删除事件</button>
+            <button>方法监听删除事件</button>
+            <button>detachEvent</button>
+            <button>兼容方案</button>
+        </div>
+
+        <h3>事件流</h3>
+        <div class="father">
+            <div class="son"></div>
+        </div>
+
+        <h3>事件对象</h3>
+        <button class="event">事件</button>
+        <ul class="target">
+            <li>abc</li>
+            <li>abc</li>
+            <li>abc</li>
+        </ul>
+        <a href="https://www.baidu.cn/" class="baidu">百度</a>
+        <div class="big">
+            <div class="small"></div>
+        </div>
+
+        <h3>事件委托</h3>
+        <ul class="delegate">
+            <li>知否知否，点我应有弹框在手！</li>
+            <li>知否知否，点我应有弹框在手！</li>
+            <li>知否知否，点我应有弹框在手！</li>
+            <li>知否知否，点我应有弹框在手！</li>
+            <li>知否知否，点我应有弹框在手！</li>
+        </ul>
+
+        <h3>常用鼠标事件</h3>
+        <p class="uncopy">我是一段不愿意分享的文字</p>
+        <button class="mouse">鼠标对象</button>
+        <a href="webMouseFollow.html">鼠标跟随</a>
+
+        <h3>常用键盘事件</h3>
+        <div class="search">
+            <div class="con"></div>
+            <input type="text" placeholder="请输入您的快递单号" class="jd">
+        </div>
+    </div>
+
+    <script>
+        let register = document.querySelector('.register');
+        var bts = register.querySelectorAll('button');
+        bts[0].onclick = function() {
+            alert('a');
+        };
+        bts[0].onclick = function() {
+            alert('b');
+        };
+        bts[1].addEventListener('click', function() {
+            alert('a');
+        });
+        bts[1].addEventListener('click', function() {
+            alert('b');
+        });
+        // bts[2].attachEvent('onClick', function() {
+        //     alert('a');
+        // });
+        // bts[2].attachEvent('onClick', function() {
+        //     alert('b');
+        // });
+        function addEventListener(element, eventName, func) {
+            if (element.addEventListener) {
+                element.addEventListener(eventName, func, false);
+            } else if (element.attachEvent) {
+                element.attachEvent('on' + eventName, func);
+            } else {
+                element['on' + eventName] = func;
+            }
+        }
+        addEventListener(bts[3], 'click', function() {
+            alert('a');
+        });
+
+        let remove = document.querySelector('.remove');
+        bts = remove.querySelectorAll('button');
+        bts[0].onclick = function() {
+            alert('a');
+            this.onclick = null;
+        };
+        function remove1() {
+            alert('a');
+            bts[1].removeEventListener('click', remove1);
+        }
+        bts[1].addEventListener('click', remove1, false);
+        // function remove2() {
+        //     alert('a');
+        //     bts[2].detachEvent('onclick', remove2);
+        // }
+        // bts[2].attachEvent('onclick', remove2);
+        function removeEventListener(element, eventName, func) {
+            if (element.removeEventListener) {
+                element.removeEventListener(eventName, func);
+            } else if (element.detachEvent) {
+                element.detachEvent('on' + eventName, func);
+            } else {
+                element['on' + eventName] = null;
+            }
+        }
+        function add() {
+            alert('a');
+            removeEventListener(this, 'click', add);
+        }
+        addEventListener(bts[3], 'click', add)
+
+        let son = document.querySelector('.son');
+        let father = document.querySelector('.father');
+        son.addEventListener('click', function() {
+            alert('son');
+        });
+        father.addEventListener('click', function() {
+            alert('father');
+            
+        });
+        document.addEventListener('click', function() {
+            alert('document');
+        });
+
+        let e = document.querySelector('.event');
+        e.onclick = function(event) {
+            console.log(event);
+            console.log(window.event);
+            console.log(event || window.event);
+        };
+        let t = document.querySelector('.target');
+        t.onclick = function(e) {
+            console.log(e.target);
+            console.log(this);
+        };
+        let baidu = document.querySelector('.baidu');
+        baidu.addEventListener('click', function(e) {
+            e.preventDefault(); //  dom 标准写法
+        });
+        baidu.onclick = function(e) {
+            // 普通浏览器 e.preventDefault();  方法
+            e.preventDefault();
+            // 低版本浏览器 ie678  returnValue  属性
+            e.returnValue = false;
+            // 可以利用return false 也能阻止默认行为 没有兼容性问题
+            return false;
+        }
+        let b = document.querySelector('.big');
+        let s = document.querySelector('.small');
+        b.addEventListener('click', function() {
+            alert('big');
+        });
+        s.addEventListener('click', function(e) {
+            alert('small');
+            e.stopPropagation();
+        });
+
+        let d = document.querySelector('.delegate');
+        d.addEventListener('click', function(e) {
+            e.target.style.backgroundColor = 'pink';
+        });
+
+        let uncopy = document.querySelector('.uncopy');
+        uncopy.addEventListener('contentmenu', function(e) {
+            e.preventDefault();
+        });
+        uncopy.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+        });
+        let mouse = document.querySelector('.mouse');
+        mouse.addEventListener('click', function(e) {
+            console.log(e.clientX);
+            console.log(e.clientY);
+            console.log(e.pageX);
+            console.log(e.pageY);
+            console.log(e.screenX);
+            console.log(e.screenY);
+        });
+
+        document.addEventListener('keydown', function(e) {
+            console.log('keydown' + e.keyCode);
+        });
+        document.addEventListener('keypress', function(e) {
+            console.log('keypress' + e.keyCode);
+        });
+        document.addEventListener('keyup', function(e) {
+            console.log('keyup' + e.keyCode);
+        });
+
+        let con = document.querySelector('.con');
+        let jd = document.querySelector('.jd');
+        document.addEventListener('keyup', function(e) {
+            if (e.keyCode === 83) {
+                jd.focus();
+            }
+        });
+        jd.addEventListener('keyup', function(e) {
+            if (this.value === '') {
+                con.style.display = 'none';
+            } else {
+                con.style.display = 'block';
+                con.innerHTML = this.value;
+            }
+        });
+        jd.addEventListener('focus', function(e) {
+            if (this.value !== '') {
+                con.style.display = 'block';
+            }
+        });
+        jd.addEventListener('blur', function(e) {
+            con.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
