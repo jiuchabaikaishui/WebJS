@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOM浏览器对象模型</title>
+    
+    <style>
+        body {
+            background-color: antiquewhite;
+        }
+        .main {
+            width: 75%;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: white;
+        }
+        .resize {
+            width: 100px;
+            height: 100px;
+            background-color: cyan;
+        }
+        span {
+            line-height: 44px;
+            font-size: 18px;
+        }
+    </style>
+
+    <script>
+        window.onload = function() {
+            let btOne = document.querySelector('.btOne');
+            btOne.onclick = function() {
+                alert('1');
+            };
+        };
+        window.addEventListener('load', function() {
+            let btTwo = document.querySelector('.btTwo');
+            btTwo.addEventListener('click', function() {
+                alert('2');
+            });
+        });
+        window.addEventListener('DOMContentLoaded', function() {
+            let btThree = document.querySelector('.btThree');
+            btThree.addEventListener('click', function() {
+                alert('3');
+            });
+
+            let resize = document.querySelector('.resize');
+            window.addEventListener('resize', function() {
+                if (window.innerWidth < 800) {
+                    resize.style.display = 'none';
+                } else {
+                    resize.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="main">
+        <h2>BOM浏览器对象模型</h2>
+        <h3>BOM构成</h3>
+        <h3>window对象</h3>
+        <button class="btOne">按钮一</button>
+        <button class="btTwo">按钮二</button>
+        <button class="btThree">按钮三</button>
+        <div class="resize">小于800隐藏</div>
+        <h3>定时器</h3>
+        <div class="ad">
+            <img src="images/ad.jpg" alt="广告">
+        </div>
+        <button class="clear">清除定时器</button>
+        <br>
+        <button class="add">添加定时器</button>
+        <button class="remove">移除定时器</button>
+        <div>
+            <span class="hour">05</span>
+            <span class="minute">:00</span>
+            <span class="second">:00</span>
+        </div>
+        电话号码： <input type="tel"> <button class="send">发送</button>
+        <h3>this</h3>
+        <button class="btn">按钮</button>
+        <h3>js执行机制</h3>
+        <h3>location</h3>
+        <button class="jump">跳百度</button>
+        <div class="jumpmsg"></div>
+        <form action="webURLParam.html">
+            用户名：<input type="text" name="username">
+            <input type="submit" value="登录">
+        </form>
+        <button class="baidu1">去百度</button>
+        <button class="baidu2">去百度</button>
+        <button class="refresh">刷新</button>
+        <h3>navigator</h3>
+        <h3>history</h3>
+        <a href="webHistory.html">前进后退</a>
+    </div>
+
+    <script>
+        var num = 1;
+        console.log(num);
+        console.log(window.num);
+
+        function fn() {
+            console.log('2');
+        }
+        window.fn();
+        fn();
+        console.dir(window);
+        console.log(name);
+        console.log(window.name);
+
+        setTimeout(function() {
+            alert('我爆了');
+        }, 3000);
+        function callback() {
+            alert('爆炸了');
+        }
+        setTimeout(callback, 5000);
+        let ad = setTimeout(function() {
+            let ad = document.querySelector('.ad');
+            ad.style.display = 'none';
+        }, 3000);
+
+        let clear = document.querySelector('.clear');
+        clear.addEventListener('click', function() {
+            window.clearTimeout(ad);
+        });
+        var num = 0;
+        setInterval(function() {
+            console.log(num)
+            num++;
+        }, 1000);
+
+        let add = document.querySelector('.add');
+        let remove = document.querySelector('.remove');
+        var timer = null
+        add.addEventListener('click', function() {
+            timer = setInterval(function() {
+                console.log('你好！');
+            }, 1000);
+        });
+        remove.addEventListener('click', function() {
+            window.clearInterval(timer);
+        });
+
+        let hour = document.querySelector('.hour');
+        let minute = document.querySelector('.minute');
+        let second = document.querySelector('.second');
+        let time = + new Date() + 5*3600*1000;
+        let cd = setInterval(countdown, 1000);
+        function countdown() {
+            let now = + new Date();
+            if (time > now) {
+                let t = (time - now)/1000;
+                console.log('t:' + t);
+                let h = ('0' + parseInt(t/3600)).slice(-2);
+                let m = ('0' + parseInt(t%3600/60)).slice(-2);
+                let s = ('0' + parseInt(t%60)).slice(-2);
+                hour.innerHTML = h;
+                minute.innerHTML = ":" + m;
+                second.innerHTML = ":" + s;
+            } else {
+                window.clearInterval(cd);
+            }
+        };
+        
+        let send = document.querySelector('.send');
+        var count = 10
+        send.addEventListener('click', function() {
+            let timer = setInterval(function() {
+                if (count > 0) {
+                    send.style.disable = true;
+                    send.innerHTML = count + ' s';
+                } else {
+                    send.style.disable = false;
+                    send.innerHTML = '发送';
+                    count = 10;
+                    window.clearInterval(timer);
+                }
+                count--;
+            }, 1000);
+        })
+
+        console.log(this);
+        function fn() {
+            console.log(this);
+        }
+        fn();
+        let o = {
+            say: function() {
+                console.log(this);
+            }
+        };
+        let btn = document.querySelector('.btn');
+        btn.addEventListener('click', function() {
+            console.log(this);
+        });
+        o.say();
+        function Fun() {
+            console.log(this);
+        }
+        let f = new Fun();
+
+        console.log('1');
+        document.onclick = function() {
+            console.log('click');
+        }
+        console.log('2');
+        setTimeout(function() {
+            console.log('3');
+        });
+        console.log('4');
+
+        let jump = document.querySelector('.jump');
+        let msg = document.querySelector('.jumpmsg');
+        var jumptime = 5;
+        jump.onclick = function() {
+            msg.innerHTML = jumptime + 's后跳转'
+            let jumptimer = setInterval(function() {
+                if (jumptime > 0) {
+                    jump.style.disable = false;
+                    msg.innerHTML = jumptime + 's后跳转'
+                } else {
+                    clearInterval(jumptimer);
+                    location.href = 'http://www.baidu.cn';
+                }
+                jumptime--;
+            }, 1000);
+        };
+
+        let baidu1 = document.querySelector('.baidu1');
+        let baidu2 = document.querySelector('.baidu2');
+        let refresh = document.querySelector('.refresh');
+        baidu1.onclick = function() {
+            location.assign('https://www.baidu.cn/');
+        };
+        baidu2.onclick = function() {
+            location.replace('https://www.baidu.cn/');
+        };
+        refresh.onclick = function() {
+            location.reload(true);
+        };
+    </script>
+</body>
+</html>

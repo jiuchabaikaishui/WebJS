@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>back</title>
+</head>
+<body>
+    <a href="webHistory.html">去首页</a>
+    <button>返回</button>
+
+    <script>
+        console.log(history.length);
+        let back = document.querySelector('button');
+        back.onclick = function() {
+            // history.back();
+            history.go(-1);
+        };
+    </script>
+</body>
+</html>

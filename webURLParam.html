@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>param</title>
+</head>
+<body>
+    <h2>登录成功</h2>
+    <div></div>
+    <script>
+        console.log(location);
+        console.log(location.search);
+        let p = location.search.substr(1);
+        console.log(p);
+        let a = p.split('=');
+        console.log(a);
+        let d = document.querySelector('div');
+        d.innerHTML = a[1] + "，欢迎您！"
+    </script>
+</body>
+</html>
