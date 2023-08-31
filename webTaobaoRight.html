@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仿淘宝固定右侧侧边栏案例</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .content {
+            margin: 0 40px;
+        }
+        .content div {
+            margin: 10px 0;
+        }
+        .header {
+            height: 150px;
+            background-color: red;
+        }
+        .banner {
+            height: 250px;
+            background-color: green;
+        }
+        .main {
+            height: 1000px;
+            background-color: blue;
+        }
+        .slider {
+            width: 40px;
+            height: 120px;
+            background-color: pink;
+            position: absolute;
+            right: 0;
+            top: 300px;
+        }
+        span {
+            position: absolute;
+            bottom: 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="header">头部</div>
+        <div class="banner">banner</div>
+        <div class="main">主体</div>
+    </div>
+    <div class="slider">
+        <span class="goback">返回顶部</span>
+    </div>
+
+    <script src="js/webAnimation.js"></script>
+    <script>
+        let banner = document.querySelector('.banner');
+        let main = document.querySelector('.main');
+        let slider = document.querySelector('.slider');
+        let goback = document.querySelector('.goback');
+        // 当侧边栏固定定位之后应该变化的数值
+        let sliderY = slider.offsetTop - banner.offsetTop;
+        // 页面滚动事件 scroll
+        document.addEventListener('scroll', function(e) {
+            // window.pageYOffset 页面被卷去的头部
+            if (window.pageYOffset > banner.offsetTop) {
+                // 当页面被卷去的头部大于banner上方的偏移 此时 侧边栏就要改为固定定位
+                slider.style.position = 'fixed';
+                slider.style.top = sliderY + 'px';
+            } else {
+                slider.style.position = 'absolute';
+                slider.style.top = '300px';
+            }
+
+            // 当页面滚动到main盒子，就显示 goback模块
+            if (window.pageYOffset > main.offsetTop) {
+                goback.style.display = 'block';
+            } else {
+                goback.style.display = 'none';
+            }
+        });
+
+        goback.addEventListener('click', function() {
+            windowVerticalAnimation(0);
+        });
+    </script>
+</body>
+</html>

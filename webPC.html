@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC端特效</title>
+    <style>
+        body {
+            background-color: antiquewhite;
+        }
+        .main {
+            width: 75%;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: white;
+        }
+
+        .father {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            margin: 50px;
+        }
+        .son {
+            width: 100px;
+            height: 100px;
+            background-color: purple;
+            margin: auto;
+        }
+        .w {
+            height: 200px;
+            background-color: skyblue;
+            margin: 0 auto 200px;
+            padding: 10px;
+            border: 15px solid red;
+        }
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+        .coordinate {
+            width: 200px;
+            height: 200px;
+            background-color: lightgray;
+        }
+
+        .login-link {
+            font-size: 20px;
+            text-decoration: none;
+            color: black;
+        }
+        .login-close {
+            font-size: 16px;
+            text-decoration: none;
+            color: black;
+        }
+        .login {
+            display: none;
+            width: 400px;
+            height: 240px;
+            z-index: 9999;
+            background-color: white;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px #ddd;
+        }
+        .login a {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            background-color: white;
+            font-size: 12px;
+            border-radius: 20px;
+            border: 1px solid #ededed;
+            top: -20px;
+            right: -20px;
+        }
+        .login-bg {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        .login-title {
+            font-size: 18px;
+            text-align: center;
+            position: relative;
+            left: 0;
+            top: 0;
+            height: 44px;
+            line-height: 44px;
+            cursor: move;
+        }
+
+        .preview {
+            position: relative;
+            height: 500px;
+        }
+        .small {
+            position: relative;
+            width: 398px;
+            height: 398px;
+            border: 1px solid #ccc;
+            cursor: move;
+        }
+        .mask {
+            display: none;
+            width: 300px;
+            height: 300px;
+            background-color: bisque;
+            opacity: 0.5;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .big {
+            display: none;
+            width: 500px;
+            height: 500px;
+            overflow: hidden;
+            border: 1px solid #ccc;
+            position: absolute;
+            top: 0;
+            left: 410px;
+            box-sizing: border-box;
+        }
+        .bigimg {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .client {
+            width: 100px;
+            height: 100px;
+            border: 10px solid cyan;
+            padding: 20px;
+            background-color: red;
+        }
+
+        .scroll {
+            width: 100px;
+            height: 100px;
+            overflow: auto;
+        }
+
+        .father-mouse {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            background-color: cyan;
+        }
+        .son-mouse {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .animation {
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+        .animate {
+            position: relative;
+            left: 0;
+            top: 0;
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+        .animateOne, .animateTwo, .animateThree, .animateFour {
+            margin-top: 10px;
+            position: relative;
+            left: 0;
+            top: 0;
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+        .btn500, .btn800 {
+            margin-top: 10px;
+        }
+        
+        .slider {
+            height: 44px;
+            overflow: hidden;
+            line-height: 44px;
+            text-align: center;
+            color: white;
+        }
+        .slide {
+            width: 44px;
+            height: 44px;
+            position: relative;
+            left: 0px;
+        }
+        .slide > div {
+            width: 200px;
+            height: 44px;
+            background-color: purple;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .slide > span {
+            position: absolute;
+            width: 44px;
+            left: 0;
+        }
+
+        .rotation {
+            position: relative;
+            width: 721px;
+            height: 455px;
+            background-color: brown;
+            overflow: hidden;
+        }
+        .rotation ul {
+            list-style: none;
+            width: 500%;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .rotation ul li {
+            float: left;
+        }
+        .rotation > a {
+            text-decoration: none;
+            width: 44px;
+            height: 44px;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
+            font-size: 22px;
+            text-align: center;
+            line-height: 44px;
+            top: 50%;
+            transform: translate(0, -50%);
+            display: none;
+        }
+        .pre {
+            left: 0;
+        }
+        .next {
+            right: 0;
+        }
+        .circle {
+            list-style: none;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 0);
+            bottom: 20px;
+            margin: 0;
+            padding: 0;
+        }
+        .circle li {
+            width: 8px;
+            height: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            float: left;
+            margin: 0 3px;
+            cursor: pointer;
+        }
+        .current {
+            background-color: #fff;
+        }
+
+        .nav {
+            width: 900px;
+            height: 42px;
+            line-height: 42px;
+            border-radius: 4px;
+            background: url(images/rss.png) no-repeat right;
+            position: relative;
+        }
+        .cloud {
+            background: url(images/cloud.gif) no-repeat;
+            position: absolute;
+            width: 83px;
+            height: 42px;
+            left: 0;
+            top: 0;
+        }
+        .nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            position: absolute;
+        }
+        .nav li {
+            float: left;
+            width: 83px;
+            text-align: center;
+        }
+        .nav a {
+            text-decoration: none;
+            color: black;
+        }
+        .default a {
+            color: aquamarine;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h2>PC端特效</h2>
+
+        <h3>offset</h3>
+        <div class="father">
+            <div class="son"></div>
+        </div>
+        <div class="w"></div>
+        <div class="box" style="width: 200px; padding: 10px;"></div>
+
+        <h3>鼠标在盒子内坐标案例</h3>
+        <div class="coordinate"></div>
+
+        <h3>模态框拖拽案例</h3>
+        <a href="javascript:;", class="login-link">点击登录</a>
+        <div class="login">
+            <div class="login-title">登录会员
+                <a href="javascript:;" class="login-close">关闭</a>
+            </div>
+        </div>
+        <div class="login-bg"></div>
+
+        <h3>仿京东放大镜效果</h3>
+        <div class="preview">
+            <div class="small">
+                <img src="images/s3.png" alt="iPhone">
+                <div class="mask"></div>
+            </div>
+            <div class="big"><img class="bigimg" src="images/big.jpg" alt="大图"></div>
+            <div style="clear: both;"></div>
+        </div>
+
+        <h3>client</h3>
+        <div class="client"></div>
+
+        <h3>scroll</h3>
+        <div class="scroll">
+            scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll scroll
+        </div>
+        <a href="webTaobaoRight.html">仿淘宝固定右侧侧边栏案例</a>
+
+        <h3>mouseenter 和mouseover的区别</h3>
+        <div class="father-mouse">
+            <div class="son-mouse"></div>
+        </div>
+
+        <h3>动画函数封装</h3>
+        <div class="animation">
+            <div class="animate"></div>
+            <div class="animateOne">点我就走</div>
+            <div class="animateTwo">点我就走</div>
+            <div class="animateThree">缓动动画</div>
+            <button class="btn500">到500</button>
+            <button class="btn800">到800</button>
+            <div class="animateFour">缓动动画</div>
+
+            <div class="slider">
+                <div class="slide">
+                    <div>问题反馈</div>
+                    <span>←</span>
+                </div>
+            </div>
+        </div>
+
+        <h3>轮播图案例</h3>
+        <div class="rotation">
+            <ul>
+                <li><a href="javascript:;"><img src="images/focus.jpg" alt=""></a></li>
+                <li><a href="javascript:;"><img src="images/focus1.jpg" alt=""></a></li>
+                <li><a href="javascript:;"><img src="images/focus2.jpg" alt=""></a></li>
+                <li><a href="javascript:;"><img src="images/focus3.jpg" alt=""></a></li>
+            </ul>
+            <a href="javascript:;" class="pre">&lt;</a>
+            <a href="javascript:;" class="next">&gt;</a>
+            <ol class="circle">
+            </ol>
+        </div>
+
+        <h3><a href="webTaobaoRight.html">返回顶部案例</a></h3>
+
+        <h3>筋头云案例</h3>
+        <div class="nav">
+            <span class="cloud"></span>
+            <ul>
+                <li class="default"><a href="javascript:;">首页新闻</a></li>
+                <li><a href="javascript:;">师资力量</a></li>
+                <li><a href="javascript:;">活动策划</a></li>
+                <li><a href="javascript:;">企业文化</a></li>
+                <li><a href="javascript:;">招聘信息</a></li>
+                <li><a href="javascript:;">公司简介</a></li>
+                <li><a href="javascript:;">我是佩奇</a></li>
+                <li><a href="javascript:;">啥是佩奇</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="js/webAnimation.js"></script>
+    <script>
+        // offset 系列
+        let father = document.querySelector('.father');
+        let son = document.querySelector('.son');
+        console.log(father.offsetTop);
+        console.log(father.offsetLeft);
+        console.log(son.offsetTop);
+        console.log(son.offsetLeft);
+        
+        let w = document.querySelector('.w');
+        console.log(w.offsetWidth);
+        console.log(w.offsetHeight);
+        
+        console.log(son.offsetParent);
+        console.log(son.parentNode);
+
+        let box = document.querySelector('.box');
+        console.log(box.offsetWidth);
+        console.log(box.style.width);
+        box.style.height = '300px';
+
+        let coordinate = document.querySelector('.coordinate');
+        coordinate.addEventListener('mousemove', function(e) {
+            let x = e.pageX - coordinate.offsetLeft;
+            let y = e.pageY - coordinate.offsetTop;
+            this.innerHTML = '(' + x + ', ' + y + ')';
+        });
+
+        let link = document.querySelector('.login-link');
+        let login = document.querySelector('.login');
+        let bg = document.querySelector('.login-bg');
+        let close = document.querySelector('.login-close');
+        link.addEventListener('click', function() {
+            bg.style.display = 'block';
+            login.style.display = 'block';
+        });
+        close.addEventListener('click', function() {
+            bg.style.display = 'none';
+            login.style.display = 'none';
+        });
+        let title = document.querySelector('.login-title');
+        title.addEventListener('mousedown', function(e) {
+            document.addEventListener('mousemove', move);
+            // 鼠标按下， 就获得鼠标在盒子内的坐标
+            let x = e.clientX - login.offsetLeft;
+            let y = e.clientY - login.offsetTop;
+            function move(e) {
+                // 鼠标移动的时候，把鼠标在页面中的坐标，减去 鼠标在盒子内的坐标就是模态框的left和top值
+                if (e.clientX >= 0 && e.clientX <= window.innerWidth && e.clientY >= 0 && e.clientY <= window.innerHeight) {
+                    login.style.left = e.clientX - x + 'px';
+                    login.style.top = e.clientY - y + 'px';
+                }
+            }
+            document.addEventListener('mouseup', function(e) {
+                // 鼠标弹起，就让鼠标移动事件移除
+                document.removeEventListener('mousemove', move)
+            });
+        });
+
+        let preview = document.querySelector('.preview');
+        let small = document.querySelector('.small');
+        let mask = document.querySelector('.mask');
+        let big = document.querySelector('.big');
+        let bigimg = document.querySelector('.bigimg');
+        small.addEventListener('mouseover', function() {
+            mask.style.display = 'block';
+            big.style.display = 'block';
+        });
+        small.addEventListener('mouseout', function() {
+            mask.style.display = 'none';
+            big.style.display = 'none';
+        });
+        small.addEventListener('mousemove', function(e) {
+            let x = e.pageX - preview.offsetLeft;
+            let y = e.pageY - preview.offsetTop;
+            var mx = x - mask.offsetWidth/2;
+            var my = y - mask.offsetHeight/2;
+            if (mx < 0) { mx = 0 }
+            let mxmax = small.offsetWidth - mask.offsetWidth;
+            if (mx > mxmax) { mx = mxmax; }
+            if (my < 0) { my = 0 }
+            let mymax = small.offsetHeight - mask.offsetHeight;
+            if (my > mymax) { my = mymax; }
+            mask.style.left = mx + 'px';
+            mask.style.top = my + 'px';
+            
+            let xscale = mx/mxmax;
+            var bx = (bigimg.offsetWidth - big.offsetWidth)*xscale;
+            let yscale = my/mymax;
+            var by = (bigimg.offsetHeight - big.offsetHeight)*yscale;
+            bigimg.style.left = -bx + 'px';
+            bigimg.style.top = -by + 'px';
+        });
+
+        let client = document.querySelector('.client');
+        console.log(client.clientWidth);
+        console.log(client.clientHeight);
+        
+        (function(a, b) {
+            var num = a + b;
+            console.log(num);
+        }(1, 2));
+        (function sum(a, b) {
+            var num = a + b;
+            console.log(num);
+        })(3, 4);
+
+        let scroll = document.querySelector('.scroll');
+        scroll.addEventListener('scroll', function() {
+            console.log(scroll.scrollTop);
+            console.log(scroll.scrollLeft);
+        });
+
+        let mouseFather = document.querySelector('.father-mouse');
+        let mouseSon = document.querySelector('.son-mouse');
+        mouseFather.addEventListener('mouseenter', function() {
+            console.log(1);
+        });
+        mouseFather.addEventListener('mouseover', function() {
+            console.log(2);
+        });
+
+        let animate = document.querySelector('.animate');
+        let aniTimer = setInterval(function() {
+            // 停止动画 本质是停止定时器
+            if (animate.offsetLeft >= 100) {
+                clearInterval(aniTimer);
+            } else {
+                animate.style.left = animate.offsetLeft + 1 + 'px';
+            }
+        }, 30);
+
+        function oneAnimate(obj, target) {
+            let aniTimer = setInterval(function() {
+                // 停止动画 本质是停止定时器
+                if (obj.offsetLeft >= target) {
+                    clearInterval(aniTimer);
+                } else {
+                    obj.style.left = obj.offsetLeft + 1 + 'px';
+                }
+            }, 30);
+        }
+        let animateOne = document.querySelector('.animateOne');
+        animateOne.addEventListener('click', function() {
+            oneAnimate(this, 200);
+        });
+
+        function twoAnimate(obj, target) {
+            clearInterval(obj.animateTimer);
+            obj.animateTimer = setInterval(function() {
+                // 停止动画 本质是停止定时器
+                if (obj.offsetLeft >= target) {
+                    clearInterval(obj.animateTimer);
+                } else {
+                    obj.style.left = obj.offsetLeft + 1 + 'px';
+                }
+            }, 30);
+        }
+        let animateTwo = document.querySelector('.animateTwo');
+        animateTwo.addEventListener('click', function() {
+            twoAnimate(this, 200);
+        });
+
+        function threeAnimate(obj, target) {
+            clearInterval(obj.animateTimer);
+            obj.animateTimer = setInterval(function() {
+                // 停止动画 本质是停止定时器
+                if (obj.offsetLeft == target) {
+                    clearInterval(obj.animateTimer);
+                } else {
+                    // 把步长值改为整数 不要出现小数的问题
+                    let step = Math.ceil((target - obj.offsetLeft)/10);
+                    obj.style.left = obj.offsetLeft + step + 'px';
+                }
+            }, 15);
+        }
+        let animateThree = document.querySelector('.animateThree');
+        animateThree.addEventListener('click', function() {
+            threeAnimate(animateThree, 200);
+        });
+
+        function fourAnimate(obj, target, callback) {
+            clearInterval(obj.animateTimer);
+            obj.animateTimer = setInterval(function() {
+                // 停止动画 本质是停止定时器
+                if (obj.offsetLeft == target) {
+                    clearInterval(obj.animateTimer);
+                    // 回调函数写到定时器结束里面
+                    if (callback) {
+                        callback();
+                    }
+                } else {
+                    var step = (target - obj.offsetLeft)/10;
+                    // 把步长值改为整数 不要出现小数的问题
+                    step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                    obj.style.left = obj.offsetLeft + step + 'px';
+                }
+            }, 15);
+        }
+        let animateFour = document.querySelector('.animateFour');
+        let btn500 = document.querySelector('.btn500');
+        btn500.addEventListener('click', function() {
+            fourAnimate(animateFour, 500);
+        });
+        let btn800 = document.querySelector('.btn800');
+        btn800.addEventListener('click', function() {
+            fourAnimate(animateFour, 800, function() {
+                animateFour.style.backgroundColor = 'red';
+            });
+        });
+
+        let slide = document.querySelector('.slide');
+        let slider = document.querySelector('.slider');
+        slide.style.left = slider.offsetWidth - slide.offsetWidth + 'px';
+        slide.addEventListener('mouseenter', function() {
+            horizontalAnimation(slide.children[0], -156, function() {
+                slide.children[1].innerHTML = '→';
+            });
+        });
+        slide.addEventListener('mouseleave', function() {
+            horizontalAnimation(slide.children[0], 0, function() {
+                slide.children[1].innerHTML = '←';
+            });
+        });
+
+        // 1. 获取元素
+        let next = document.querySelector('.next');
+        let pre = document.querySelector('.pre');
+        let rotation = document.querySelector('.rotation');
+
+        // 2. 鼠标经过 rotation 就显示隐藏左右按钮
+        rotation.addEventListener('mouseenter', function() {
+            next.style.display = 'block';
+            pre.style.display = 'block';
+        });
+        rotation.addEventListener('mouseleave', function() {
+            next.style.display = 'none';
+            pre.style.display = 'none';
+        });
+
+        // 3. 动态生成小圆圈  有几张图片，我就生成几个小圆圈
+        var flag = true;
+        let ul = rotation.children[0];
+        let ol = document.querySelector('.circle');
+        for (let index = 0; index < ul.children.length; index++) {
+            let li = document.createElement('li');
+            ol.appendChild(li);
+            li.addEventListener('click', function() {
+                if (flag) {
+                    flag = false;
+                    changeCircle(index);
+                    horizontalAnimation(ul, -index*rotation.offsetWidth, function() {
+                        flag = true;
+                    });
+                }
+            });
+        }
+        ol.children[0].className = 'current';
+        
+        // 4. 克隆第一张图片(li)放到ul 最后面
+        ul.appendChild(ul.children[0].cloneNode(true));
+        
+        // 5. 点击左右侧按钮， 图片滚动一张
+        next.addEventListener('click', function() {
+            if (flag) {
+                flag = false;
+                if (ul.offsetLeft == rotation.offsetWidth*(1 - ul.children.length)) {
+                    ul.style.left = '0px';
+                }
+                let target = ul.offsetLeft - rotation.offsetWidth;
+                horizontalAnimation(ul, target, function() {
+                    flag = true;
+                });
+
+                var n = -ul.offsetLeft/rotation.offsetWidth;
+                n++;
+                n = n == ul.children.length - 1 ? 0 : n;
+                changeCircle(n);
+            }
+        });
+        pre.addEventListener('click', function() {
+            if (flag) {
+                flag = false;
+                if (ul.offsetLeft == 0) {
+                    ul.style.left = rotation.offsetWidth*(1 - ul.children.length) + 'px';
+                }
+                let target = ul.offsetLeft + rotation.offsetWidth;
+                horizontalAnimation(ul, target, function() {
+                    flag = true;
+                });
+
+                var n = -ul.offsetLeft/rotation.offsetWidth;
+                n--;
+                n = n == ul.children.length - 1 ? 0 : n;
+                changeCircle(n);
+            }
+        });
+        function changeCircle(n) {
+            for (let index = 0; index < ol.children.length; index++) {
+                const element = ol.children[index];
+                element.removeAttribute('class');
+            }
+            ol.children[n].className = 'current';
+        }
+
+        // 6. 自动播放轮播图
+        setInterval(function() {
+            next.click();
+        }, 2500);
+
+
+        let cloud = document.querySelector('.cloud');
+        let nav = document.querySelector('.nav');
+        let lis = nav.querySelectorAll('li');
+        // 原始位置
+        var origin = 0;
+        for (let index = 0; index < lis.length; index++) {
+            const element = lis[index];
+            element.addEventListener('mouseenter', function() {
+                horizontalAnimation(cloud, this.offsetLeft);
+            });
+            element.addEventListener('mouseleave', function() {
+                horizontalAnimation(cloud, origin);
+            });
+            element.addEventListener('click', function() {
+                origin = this.offsetLeft;
+            });
+        }
+    </script>
+</body>
+</html>
