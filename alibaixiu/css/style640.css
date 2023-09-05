@@ -1,0 +1,10 @@
+div {
+    width: 100%;
+    height: 200px;
+}
+div:first-of-type {
+    background-color: red;
+}
+div:last-of-type {
+    background-color: cyan;
+}
