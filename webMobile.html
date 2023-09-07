@@ -224,6 +224,20 @@
         </div>
 
         <h3><a href="alibaixiu/webAlibaixiu.html">阿里百秀轮播图</a></h3>
+
+        <h3>本地存储</h3>
+        <label for="key">key: </label>
+        <input type="text" id="key" name="key" placeholder="请输入键"> <br>
+        <label for="value">value: </label>
+        <input type="text" id="value" name="value" placeholder="请输入值"> <br>
+        <button class="set">保存</button>
+        <button class="get">获取</button>
+        <button class="remove">移除</button>
+        <button class="clear">清除</button> 
+
+        <h3>记住用户名案例</h3>
+        <input type="text" id="username" name="username" placeholder="请输入用户名">
+        <input type="checkbox" id="remember"> 记住用户名
     </div>
 
     <script src="js/fastclick.js"></script>
@@ -441,6 +455,55 @@
         $('.carousel').carousel({
             interval: 2000
         });
+
+        let key = document.querySelector('#key');
+        let value = document.querySelector('#value');
+        let set = document.querySelector('.set');
+        set.addEventListener('click', function() {
+            if (key.value && value.value) {
+                sessionStorage.setItem(key.value, value.value);
+                localStorage.setItem(key.value, value.value);
+            } else {
+                alert('请输入键和值');
+            }
+        });
+        let get = document.querySelector('.get');
+        get.addEventListener('click', function() {
+            if (key.value) {
+                alert(sessionStorage.getItem(key.value))
+                alert(localStorage.getItem(key.value))
+            } else {
+                alert('请输入键和值');
+            }
+        });
+        let remove = document.querySelector('.remove');
+        remove.addEventListener('click', function() {
+            if (key.value) {
+                sessionStorage.removeItem(key.value);
+                localStorage.removeItem(key.value);
+            } else {
+                alert('请输入键和值');
+            }
+        });
+        let clear = document.querySelector('.clear');
+        clear.addEventListener('click', function() {
+            sessionStorage.clear();
+            localStorage.clear();
+        });
+
+        // let username = document.querySelector('#username');
+        // let checkbox = document.querySelector('#remember');
+        // if (localStorage.getItem('username')) {
+        //     checkbox.checked = true;
+        //     username.value = localStorage.getItem('username');
+        // }
+        // checkbox.addEventListener('change', function() {
+        //     if (this.checked && username.value) {
+        //         localStorage.setItem('username', username.value);
+        //     } else {
+        //         localStorage.removeItem('username');
+        //     }
+        // });
     </script>
 </body>
-</html>
+</html> 

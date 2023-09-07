@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery</title>
+
+    <link rel="stylesheet" href="CSS/webMain.css">
+    <script src="js/jquery-3.7.1.min.js"></script>
+
+    <style>
+        .one {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+
+        .sina ul, .sina ol {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sina a {
+            text-decoration: none;
+            color: black;
+        }
+        .sina ul > li {
+            float: left;
+        }
+        .sina ul > li > a {
+            display: block;
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            font-size: 16px;
+        }
+        .sina ul > li > a:hover {
+            background-color: lightgray;
+        }
+        .sina ol {
+            border-left: 1px solid orange;
+            border-right: 1px solid orange;
+            display: none;
+        }
+        .sina ol li {
+            width: 60px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            font-size: 14px;
+            border-bottom: 1px solid orange;
+        }
+        .sina ol li:hover {
+            background-color: antiquewhite;
+        }
+
+        .taobao {
+            width: 261px;
+            height: 252px;
+            border-left: 1px solid pink;
+            border-right: 1px solid pink;
+            border-top: 1px solid pink;
+        }
+        .taobao ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            float: left;
+            height: 100%;
+            border-right: 1px solid pink;
+        }
+        .taobao ul li {
+            width: 60px;
+            height: 27px;
+            line-height: 27px;
+            text-align: center;
+            border-bottom: 1px solid pink;
+            background: url(images/lili.jpg) repeat-x;
+        }
+        .taobao .current {
+            background: url(images/abg\(1\).gif);
+        }
+        .taobao div {
+            width: 200px;
+            height: 251px;
+            position: relative;
+            border-bottom: 1px solid pink;
+            float: left;
+        }
+        .taobao div img:nth-of-type(n+2) {
+            display: none;
+        }
+
+        .tab ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            height: 40px;
+            width: 100%;
+            background-color: #eee;
+            border: 1px solid #ccc;
+        }
+        .tab ul li {
+            float: left;
+            height: 40px;
+            line-height: 40px;
+            padding: 0 10px;
+        }
+        .tab .current {
+            background-color: brown;
+        }
+        .tab > div > div:nth-of-type(n+2) {
+            display: none;
+        }
+
+        .show {
+            background-color: black;
+            width: 630px;
+            padding: 10px 0 0 10px;
+        }
+        .show ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .show ul li {
+            float: left;
+            margin: 0 10px 10px 0;
+        }
+        .show img {
+            display: block;
+        }
+
+        .king {
+            background: url(images/wzry/bg.png) no-repeat;
+            padding: 10px;
+        }
+        .king ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .king ul li {
+            float: left;
+            width: 69px;
+            height: 69px;
+            overflow: hidden;
+        }
+        .king ul li:first-child {
+            width: 224px;
+        }
+        .king img {
+            display: block;
+            height: 69px;
+        }
+        .king ul li img:nth-child(-n+1) {
+            display: none;
+            width: 224px;
+        }
+        .king ul li img:nth-child(n+2) {
+            width: 69px;
+        }
+        .king ul li:first-child img:first-child {
+            display: block;
+        }
+        .king ul li:first-child img:nth-child(even) {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h2>jQuery</h2>
+
+        <h3>jQuery基础</h3>
+        <div class="one"></div>
+
+        <video src="images/mov.mp4" muted></video>
+
+        <h3>新浪下拉菜单案例</h3>
+        <div class="sina">
+            <ul>
+                <li>
+                    <a href="javascript:;">新浪</a>
+                    <ol>
+                        <li><a href="javascript:;">私信</a></li>
+                        <li><a href="javascript:;">评论</a></li>
+                        <li><a href="javascript:;">@我</a></li>
+                    </ol>
+                </li>
+                <li>
+                    <a href="javascript:;">新浪</a>
+                    <ol>
+                        <li><a href="javascript:;">私信</a></li>
+                        <li><a href="javascript:;">评论</a></li>
+                        <li><a href="javascript:;">@我</a></li>
+                    </ol>
+                </li>
+                <li>
+                    <a href="javascript:;">新浪</a>
+                    <ol>
+                        <li><a href="javascript:;">私信</a></li>
+                        <li><a href="javascript:;">评论</a></li>
+                        <li><a href="javascript:;">@我</a></li>
+                    </ol>
+                </li>
+                <li>
+                    <a href="javascript:;">新浪</a>
+                    <ol>
+                        <li><a href="javascript:;">私信</a></li>
+                        <li><a href="javascript:;">评论</a></li>
+                        <li><a href="javascript:;">@我</a></li>
+                    </ol>
+                </li>
+            </ul>
+            <div style="clear: left;"></div>
+        </div>
+
+        <h3>淘宝服饰精品案例</h3>
+        <div class="taobao">
+            <ul>
+                <li class="current">女靴</li>
+                <li>雪地靴</li>
+                <li>冬裙</li>
+                <li>呢大衣</li>
+                <li>毛衣</li>
+                <li>棉服</li>
+                <li>女裤</li>
+                <li>羽绒服</li>
+                <li>牛仔裤</li>
+            </ul>
+            <div>
+                <img src="images/女靴.jpg" alt="" width="200" height="251">
+                <img src="images/雪地靴.jpg" alt="" width="200" height="251">
+                <img src="images/冬裙.jpg" alt="" width="200" height="251">
+                <img src="images/呢大衣.jpg" alt="" width="200" height="251">
+                <img src="images/毛衣.jpg" alt="" width="200" height="251">
+                <img src="images/棉服.jpg" alt="" width="200" height="251">
+                <img src="images/女裤.jpg" alt="" width="200" height="251">
+                <img src="images/羽绒服.jpg" alt="" width="200" height="251">
+                <img src="images/牛仔裤.jpg" alt="" width="200" height="251">
+            </div>
+        </div>
+
+        <h3>tab 栏切换案例</h3>
+        <div class="tab">
+            <ul>
+                <li class="current">商品介绍</li>
+                <li>规格与包装</li>
+                <li>售后保障</li>
+                <li>商品评价（50000）</li>
+                <li>手机社区</li>
+            </ul>
+            <div>
+                <div>商品介绍内容</div>
+                <div>规格与包装内容</div>
+                <div>售后保障内容</div>
+                <div>商品评价（50000）内容</div>
+                <div>手机社区内容</div>
+            </div>
+        </div>
+
+        <h3>突出显示案例</h3>
+        <div class="show">
+            <ul>
+                <li><img src="images/01.jpg" alt=""></li>
+                <li><img src="images/02.jpg" alt=""></li>
+                <li><img src="images/03.jpg" alt=""></li>
+                <li><img src="images/04.jpg" alt=""></li>
+                <li><img src="images/05.jpg" alt=""></li>
+                <li><img src="images/06.jpg" alt=""></li>
+            </ul>
+            <div style="clear: both;"></div>
+        </div>
+
+        <h3>王者荣耀手风琴效果案例</h3>
+        <div class="king">
+            <ul>
+                <li>
+                    <img src="images/wzry/c.png" alt="">
+                    <img src="images/wzry/c1.jpg" alt="">
+                </li>
+                <li>
+                    <img src="images/wzry/h.png" alt="">
+                    <img src="images/wzry/h1.jpg" alt="">
+                </li>
+                <li>
+                    <img src="images/wzry/l.png" alt="">
+                    <img src="images/wzry/l1.jpg" alt="">
+                </li>
+                <li>
+                    <img src="images/wzry/m.png" alt="">
+                    <img src="images/wzry/m1.jpg" alt="">
+                </li>
+                <li>
+                    <img src="images/wzry/t.png" alt="">
+                    <img src="images/wzry/t1.jpg" alt="">
+                </li>
+                <li>
+                    <img src="images/wzry/w.png" alt="">
+                    <img src="images/wzry/w1.jpg" alt="">
+                </li>
+                <li>
+                    <img src="images/wzry/z.png" alt="">
+                    <img src="images/wzry/z1.jpg" alt="">
+                </li>
+            </ul>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+
+    <script>
+        $(function() {
+            $('.one').hide();
+        });
+        
+        console.dir($('.one'));
+        console.dir(document.querySelector('.one'));
+
+        let video = document.querySelector('video');
+        console.dir($(video));
+        console.dir($('video').get(0));
+        // $('video')[0].play();
+        video.play();
+
+        $('.sina ul>li').mouseenter(function() {
+            $(this).children('ol').show();
+        });
+        $('.sina ul>li').mouseleave(function() {
+            $(this).children('ol').hide();
+        });
+
+        $('.taobao ul>li').mouseenter(function() {
+            $(this).addClass('current').siblings().removeClass('current');
+            $('.taobao div img').eq($(this).index()).show().siblings().hide();
+        });
+
+        $('.tab ul>li').click(function() {
+            $(this).addClass('current').siblings().removeClass('current');
+            $('.tab>div>div').eq($(this).index()).show().siblings().hide();
+        });
+
+        $('.show ul li').hover(function() {
+            $(this).siblings().stop().fadeTo('normal', 0.5);
+        }, function() {
+            $(this).siblings().stop().fadeTo('normal', 1);
+        });
+
+        $('.king ul li').mouseover(function() {
+            $(this).stop().animate({
+                width: 224
+            }, 'normal').children('img:first').stop().fadeIn('normal').siblings().stop().fadeOut('normal');
+            $(this).siblings('li').stop().animate({
+                width: 69
+            }, 'normal').find('img:first').stop().fadeOut('normal').siblings().stop().fadeIn('normal');
+        });
+    </script>
+</body>
+</html>
