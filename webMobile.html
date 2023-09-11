@@ -491,19 +491,19 @@
             localStorage.clear();
         });
 
-        // let username = document.querySelector('#username');
-        // let checkbox = document.querySelector('#remember');
-        // if (localStorage.getItem('username')) {
-        //     checkbox.checked = true;
-        //     username.value = localStorage.getItem('username');
-        // }
-        // checkbox.addEventListener('change', function() {
-        //     if (this.checked && username.value) {
-        //         localStorage.setItem('username', username.value);
-        //     } else {
-        //         localStorage.removeItem('username');
-        //     }
-        // });
+        let username = document.querySelector('#username');
+        let checkbox = document.querySelector('#remember');
+        if (localStorage.getItem('username')) {
+            checkbox.checked = true;
+            username.value = localStorage.getItem('username');
+        }
+        checkbox.addEventListener('change', function() {
+            if (this.checked && username.value) {
+                localStorage.setItem('username', username.value);
+            } else {
+                localStorage.removeItem('username');
+            }
+        });
     </script>
 </body>
 </html> 
