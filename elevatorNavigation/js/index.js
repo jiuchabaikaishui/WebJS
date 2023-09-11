@@ -20,7 +20,6 @@ $(function() {
     
     $(document).scroll(function() {
         toggleTool();
-
     });
 
     $('.fixedtool li').click(function() {
