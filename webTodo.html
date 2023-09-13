@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!-- <html lang="en"> -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To do list</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ccc;
+        }
+        header {
+            background-color: #333;
+            height: 44px;
+        }
+        section {
+            margin: 0 auto;
+        }
+        section > label {
+            font-size: 24px;
+            color: white;
+            line-height: 44px;
+        }
+        section > input {
+            float: right;
+            width: 400px;
+            height: 24px;
+            margin-top: 10px;
+            border-radius: 5px;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.5) inset;
+            text-indent: 10px;
+            border: none;
+        }
+        input:focus {
+            outline-width: 0;
+        }
+        h2 {
+            position: relative;
+        }
+        span {
+            position: absolute;
+            top: 7px;
+            right: 5px;
+            background-color: #fff;
+            display: inline-block;
+            padding: 0 5px;
+            border-radius: 10px;
+            height: 20px;
+            line-height: 20px;
+            font-size: 14px;
+        }
+        ul, ol {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        ol li {
+            opacity: 0.5;
+        }
+        li {
+            position: relative;
+            height: 34px;
+            line-height: 34px;
+            border-left: 5px solid #629A9C;
+            background-color: #fff;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            padding: 0 45px;
+        }
+        li input {
+            width: 22px;
+            height: 22px;
+            position: absolute;
+            left: 10px;
+            top: 3px;
+            cursor: pointer;
+        }
+        li p {
+            overflow: hidden;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        li a {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 12px;
+            border: 6px double #fff;
+            background-color: #999;
+        }
+        
+        footer {
+            text-align: center;
+            color: #666;
+        }
+
+        @media screen and (max-width: 600px) {
+            section {
+                width: 96%;
+            }
+        }
+        @media screen and (min-width: 600px) {
+            section {
+                width: 600px;
+                padding: 0 10px;
+            }
+        }
+    </style>
+
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script>
+        $(function() {
+            // 获取数据
+            function getData() {
+                let data = localStorage.getItem('todolist');
+                if (data) {
+                    return JSON.parse(data);
+                }
+                return [];
+            }
+            let data = getData();
+
+            // 保存数据
+            function setData() {
+                localStorage.setItem('todolist', JSON.stringify(data));
+            }
+
+            // 渲染UI
+            function loadData() {
+                $('ul, ol').empty();
+                var doneCount = 0;
+                $.each(data, function(i, o) {
+                    if (o.done) {
+                        let li = $("<li> <input type='checkbox' checked> <p>" + o.title + "</p> <a href='javascript:;' id=" + i + "></a> </li>");
+                        $('ol').prepend(li);
+                        doneCount++;
+                    } else {
+                        let li = $("<li> <input type='checkbox'> <p>" + o.title + " </p> <a href='javascript:;' id=" + i + "></a> </li>");
+                        $('ul').prepend(li);
+                    }
+                });
+                $('span').eq(0).html(data.length - doneCount);
+                $('span').eq(1).html(doneCount);
+            }
+            loadData();
+
+            // 添加数据
+            $('header input').on('keydown', function(e) {
+                if (e.keyCode == 13) {
+                    if ($(this).val()) {
+                        data.push({
+                            title: $(this).val(),
+                            done: false
+                        });
+                        setData();
+                        loadData();
+                        $(this).val('');
+                    } else {
+                        alert('请输入您要的操作');
+                    }
+                }
+            });
+
+            // 进行与完成操作
+            $('ul, ol').on('click', 'input', function() {
+                let i = $(this).parent().children('a').prop('id');
+                let o = data[i];
+                o.done = !o.done;
+                setData();
+                loadData();
+            });
+
+            // 删除操作
+            $('ul, ol').on('click', 'a', function() {
+                let i = $(this).prop('id');
+                data.splice(i, 1);
+                setData();
+                loadData();
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <section>
+            <label for="title">To do list</label>
+            <input id="title" type="text" placeholder="添加 To do 任务" name="title" required autofocus autocomplete="off">
+        </section>
+    </header>
+    <section>
+        <h2>正在进行
+            <span>0</span>
+        </h2>
+        <ul></ul>
+        <h2>已经完成
+            <span>0</span>
+        </h2>
+        <ol></ol>
+    </section>
+    <footer>Copyright © 2014 todolist.cn</footer>
+</body>
+</html>

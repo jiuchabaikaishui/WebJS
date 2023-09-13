@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 事件</title>
+
+    <link rel="stylesheet" href="CSS/webMain.css">
+
+    <style>
+        .weibo textarea {
+            outline: none;
+            resize: none;
+            width: 50%;
+        }
+        .weibo ul {
+            list-style: none;
+            margin: 0;
+            padding: 0 0 0 80px;
+            width: 50%;
+        }
+        .weibo li {
+            border-bottom: 1px dashed darkgray;
+            position: relative;
+            display: none;
+        }
+        .weibo li a {
+            float: right;
+        }
+    </style>
+
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script>
+        $(function() {
+            $('.weibo button').on('click', function() {
+                if ($('.weibo textarea').val()) {
+                    let li = $("<li>" + $('.weibo textarea').val() + "<a href='javascript:;'>删除</a> </li>");
+                    $('.weibo ul').prepend(li);
+                    li.stop().slideDown();
+                    $('.weibo textarea').val('');
+                } else {
+                    alert('请输入内容');
+                }
+            });
+            $('.weibo ul').on('click', 'a', function(e) {
+                $(this).parent().stop().slideUp(function() {
+                    $(this).remove()
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="main">
+        <h2>jQuery 事件</h2>
+        <h3>发布微博案例</h3>
+        <div class="weibo">
+            <span>微博发布</span>
+            <textarea name="" id="" cols="30" rows="10" placeholder="请输入内容"></textarea>
+            <button>发布</button>
+            <ul></ul>
+        </div>
+
+        <h3><a href="webFlow.html">瀑布流插件案例</a></h3>
+
+        <h3><a href="elevatorNavigation/index.html">图片懒加载插件</a></h3>
+
+        <h3><a href="webTodo.html">To do list 案例</a></h3>
+    </div>
+</body>
+</html>
