@@ -1,0 +1,21 @@
+.panel {
+    border: 15px solid transparent;
+    border-width: .625rem .475rem .25rem 1.625rem;
+    border-image: url(../images/border.png) 50 38 20 130 fill stretch;
+    box-sizing: border-box;
+    position: relative;
+    margin-bottom: .25rem;
+}
+.inner {
+    position: absolute;
+    left: -1.625rem;
+    top: -0.625rem;
+    right: -0.475rem;
+    bottom: -0.25rem;
+    padding: 0.3rem 0.45rem;
+}
+.panel h3 {
+  font-size: 0.25rem;
+  color: #fff;
+  font-weight: 400;
+}
