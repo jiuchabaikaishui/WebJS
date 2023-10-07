@@ -534,14 +534,14 @@
             obj.score = 80;
             console.log(obj.score); // 80
             Object.defineProperty(obj, 'score', {
-                writable: false
+                writable: false // 不允许修改
             });
             obj.score = 100;
             console.log(obj.score); // 80
 
             console.log(Object.keys(obj)); // ['id', 'name', 'age', 'score']
             Object.defineProperty(obj, 'score', {
-                enumerable: false
+                enumerable: false // 不允许遍历
             });
             console.log(Object.keys(obj)); // ['id', 'name', 'age']
 
@@ -550,7 +550,7 @@
             console.log(obj.score); // undefined
             Object.defineProperty(obj, 'score', {
                 value: 60,
-                configurable: false
+                configurable: false // 不允许删除
             });
             console.log(obj.score); // 60
             delete obj.score;
