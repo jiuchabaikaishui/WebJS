@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>面向对象</title>
+
+    <link rel="stylesheet" href="CSS/webMain.css">
+
+    <style>
+        /* tab切换案例 */
+        @font-face {font-family: "iconfont";
+            src: url('iconfont.eot?t=1553960438096'); /* IE9 */
+            src: url('iconfont/iconfont.eot?t=1553960438096#iefix') format('embedded-opentype'), /* IE6-IE8 */
+            url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAK4AAsAAAAABmwAAAJrAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCCcAp4fwE2AiQDCAsGAAQgBYRtBzAbpQXIrrApw71oi3CCOyzEy8RvE4yIN8TD036/zp03qCYRjaJZNBFFS/gREoRGipQKofjuNrb+9XbTqrmXcqWzfTRDqFqWkhAJzYToaE6LQ7Q30CirRqSKMnj58DdIdrNAdhoTQJa5VGfLrtiAy+lPoAcZdUC57UljTR4TMAo4oL0xiqwYG8YueIHPCdTqYajty/t+bUpmrwvEnUK42lQhLMssVy1UNhzN4kmF6vSQVvMY/T5+HEU1SUXBbti7uBBrx++cgqJULp0GhAgBna5AgSkgE0eN6R1NwTitNt0yAI5VG7wr/8AljmoX7K+zq+tBF1Q8k9JTPWp1AjnJDgCzmM3bU0V31dsvV3M2eC6fHjaGfX/qS7U5Gr58vj6uD0bgxudyrV/OtHHyP+NZnpO1txbktjdY+3FB61+7nxeOzq8niGYnRwT3v3aZxeXf6rrNxl5//49WlEtZUUL1Pj3Bv1EO7MuG2namrCkbvcnApLUJtWpRhv2tzlRLx43kQ7WO2/FW6c5QqDZEZnYKFeosoVK1NdSa5E/XaVM1Ra7BhAEQmk0kjV5QaLbIzG5U6HRRqTkK1DqJtivrjMT1zJaNnIsihAiyQE3JdbszcW0Xiadzdl4d8UO0HSUGNDNXzl2hifYSO5pPjrorgdjUAAavoa5TKDZVUXD3kuuOOzh70fShvUiN2owtNsRxIREIIiATUCYpGO2aqXy/CxEeHcfuaKrLDiGbQ5kcEMsNIK8M5qCmR3mn8RFHOpcECBtlAAwWIZ2OAqV5kQoJXHvShORYBzrDZKhhb3uT8QPlrA3bmsKZV6i89DiTV2o1AAAA') format('woff2'),
+            url('iconfont/iconfont.woff?t=1553960438096') format('woff'),
+            url('iconfont/iconfont.ttf?t=1553960438096') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+            url('iconfont/iconfont.svg?t=1553960438096#iconfont') format('svg'); /* iOS 4.1- */
+        }
+        .iconfont {
+            font-family: "iconfont" !important;
+            font-size: 16px;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .icon-guanbi:before {
+            content: "\e676";
+        }
+        .tab {
+            border: orange solid 1px;
+            position: relative;
+            height: 350px;
+        }
+        .tab ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .tab li {
+            width: 100px;
+            height: 50px;
+            float: left;
+            text-align: center;
+            border-right: gray solid 1px;
+            position: relative;
+        }
+        .tab li.hactive {
+            border-bottom: white solid 1px;
+            z-index: 999;
+        }
+        .tab li span:first-child {
+            line-height: 50px;
+        }
+        .tab li span:last-child {
+            font-size: 12px;
+            user-select: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: inline-block;
+            height: 20px;
+        }
+        .tab .header .add {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+        .tab .header .add span {
+            user-select: none;
+            border: lightgray solid 1px;
+            width: 20px;
+            height: 20px;
+            font-size: 16px;
+            text-align: center;
+            line-height: 20px;
+            display: block;
+        }
+        .tab .content {
+            position: absolute;
+            border-top: gray solid 1px;
+            width: 100%;
+            height: 300px;
+            box-sizing: border-box;
+            top: 50px;
+            padding: 30px;
+        }
+        .tab input {
+            width: 80%;
+            height: 60%;
+        }
+        .tab .content section {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+        .tab .content .sactive {
+            display: block;
+        }
+
+        .goods input {
+            width: 50px;
+        }
+        .goods table {
+            border-collapse: collapse;
+            border: 1px solid gray;
+            margin-top: 10px;
+            width: 400px;
+        }
+        .goods table th, .goods table td {
+            border: 1px solid gray;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h2>面向对象</h2>
+        <h3>面向对象版 tab 栏切换案例</h3>
+        <div class="tab">
+            <div class="header">
+                <ul>
+                    <li class="hactive"><span>测试1</span><span class="iconfont icon-guanbi"></span></li>
+                    <li><span>测试2</span><span class="iconfont icon-guanbi"></span></li>
+                    <li><span>测试3</span><span class="iconfont icon-guanbi"></span></li>
+                </ul>
+                <div class="add">
+                    <span>+</span>
+                </div>
+            </div>
+            <div class="content">
+                <section class="sactive">测试1</section>
+                <section>测试2</section>
+                <section>测试3</section>
+            </div>
+        </div>
+        <h3>字符串首尾去空</h3>
+        <div class="blank">
+            <input type="text" placeholder="请输入内容">
+            <button>添加</button>
+            <div class="content"></div>
+        </div>
+        <h3>筛选商品案例</h3>
+        <div class="goods">
+            <div class="search">
+                <span>按照价格查询:</span>
+                <input type="text" class="min"> 
+                <span>—</span>
+                <input type="text" class="max">
+                <input type="button" value="搜索" class="price">
+                <span>按照商品名称查询:</span>
+                <input type="text" class="pname">
+                <input type="button" value="查询" class="produce">
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>产品名称</th>
+                        <th>价格</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        // 面向对象
+        (function() {
+            class Star {
+                constructor(name, age) {
+                    this.name = name;
+                    this.age = age;
+                }
+                sing(song) {
+                    console.log(this.name + '唱' + song);
+                }
+            }
+            var ldh = new Star('刘德华', 21);
+            ldh.sing('爱你一万年');
+
+            class Father {
+                constructor(fname) {
+                    this.fname = fname;
+                }
+                say() {
+                    console.log('我姓' + this.fname);
+                }
+            }
+            class Son extends Father {
+                constructor(fname) {
+                    super(fname);
+                }
+            }
+            let son = new Son('张');
+            son.say();
+        })();
+
+        (function() {
+            class Father {
+                constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                }
+                sum() {
+                    console.log(this.x + this.y);
+                }
+            }
+            class Son extends Father {
+                constructor(x, y) {
+                    super(x, y);
+                    this.x = x;
+                    this.y = y;
+                }
+                sub() {
+                    console.log(this.x - this.y);
+                }
+            }
+            var son = new Son(5, 3);
+            son.sum();
+            son.sub();
+        })();
+        
+        // tab栏切换案例
+        (function() {
+            var that = null;
+            class Tab {
+                constructor() {
+                    that = this;
+                    this.main = document.querySelector('.tab');
+                    this.ul = this.main.querySelector('.header ul');
+                    this.add = this.main.querySelector('.add');
+                    this.content = this.main.querySelector('.content');
+                    this.add.addEventListener('click', this.addTab);
+                    this.updateNode();
+                }
+                // 更新元素节点
+                updateNode() {
+                    this.lis = this.main.querySelectorAll('li');
+                    this.deletes = this.main.querySelectorAll('.icon-guanbi');
+                    this.sections = this.main.querySelectorAll('section');
+                    // 绑定事件
+                    for (var i = 0; i < this.lis.length; i++) {
+                        let li = this.lis[i];
+                        li.index = i;
+                        li.onclick = this.toggleTab;
+                        this.deletes[i].onclick = this.deleteTab;
+                        li.children[0].ondblclick = this.editTab;
+                        this.sections[i].ondblclick = this.editTab;
+                    }
+                }
+                // 清除选中效果
+                clearClass() {
+                    for (var i = 0; i < this.lis.length; i++) {
+                        let li = this.lis[i];
+                        li.className = '';
+                        let section = this.sections[i];
+                        section.className = '';
+                    }
+                }
+                // 切换
+                toggleTab() {
+                    that.clearClass();
+                    this.className = 'hactive';
+                    that.sections[this.index].className = 'sactive';
+                }
+                // 添加
+                addTab() {
+                    that.clearClass();
+                    let hEle = '<li class="hactive"><span>测试' + (that.lis.length + 1) + '</span><span class="iconfont icon-guanbi"></span></li>';
+                    that.ul.innerHTML += hEle;
+                    let cEle = '<section class="sactive">测试' + (that.lis.length + 1) + '</section>';
+                    // 把这两个元素追加到对应的父元素里面
+                    that.content.insertAdjacentHTML('beforeend', cEle);
+                    that.updateNode();
+                }
+                // 删除
+                deleteTab(e) {
+                    // 禁止冒泡
+                    e.stopPropagation();
+                    let li = this.parentNode;
+                    li.remove();
+                    that.sections[li.index].remove();
+                    that.updateNode();
+                    if (that.main.querySelector('.hactive')) return;
+                    var index = li.index > 0 ? li.index - 1 : 0;
+                    let ele = that.lis[index];
+                    ele && ele.click();
+                }
+                // 修改
+                editTab(e) {
+                    // 双击禁止选定文字
+                    window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+                    let ele = '<input type="text" value="' + this.innerHTML + '"/>'
+                    this.innerHTML = ele;
+                    let input = this.children[0];
+                    input.select();
+                    input.onblur = function() {
+                        this.parentNode.innerHTML = input.value;
+                    }
+                    input.onkeyup = function(e) {
+                        if (e.keyCode == 13) {
+                            this.blur();
+                        }
+                    };
+                }
+            }
+            let tab = new Tab();
+        })();
+
+        // 构造函数和原型
+        (function() {
+            // 字面量创建对象
+            var ldh = {
+                name: '刘德华',
+                age: 18
+            };
+            console.log(ldh);
+
+            // new Object() 创建对象
+            ldh = new Object();
+            ldh.name = '刘德华';
+            ldh.age = 19;
+            console.log(ldh);
+
+            // 构造函数创建对象
+            function Star(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+            ldh = new Star('刘德华', 20);
+            console.log(ldh);
+            
+            // 实例成员
+            console.log(ldh.age);
+            // 静态成员
+            Star.sex = '男';
+            console.log(Star.sex);
+
+            // 把那些不变的方法，直接定义在 prototype 对象上，这样所有对象的实例就可以共享这些方法。
+            Star.prototype.sing = function() {
+                console.log(this.name + '会唱歌');
+            }
+            let zxy = new Star('张学友', 18);
+            zxy.sing();
+
+            // 对象都会有一个属性 __proto__ 指向构造函数的 prototype 原型对象
+            console.log(Star.prototype === ldh.__proto__);
+
+            // 如果修改了原来的原型对象，给原型对象赋值的是一个对象，则必须手动的利用constructor指回原来的构造函数
+            Star.prototype = {
+                constructor: Star,
+                sing: function() {
+                    console.log(this.name + '会唱歌');
+                },
+                movie: function() {
+                    console.log(this.name + '会演电影');
+                }
+            };
+            var gfc = new Star('郭富城', 21);
+            gfc.movie();
+            console.log(Star.prototype.constructor);
+            console.log(gfc.__proto__.constructor);
+
+            // Star原型对象里面的__proto__原型指向的是 Object.prototype
+            console.log(Star.prototype.__proto__);
+            // Object.prototype原型对象里面的__proto__原型  指向为 null
+            console.log(Object.prototype.__proto__);
+
+            gfc = new Star('郭富城', 21);
+            Object.prototype.sex = '男';
+            console.log(gfc.sex);
+            Star.prototype.sex = '女';
+            console.log(gfc.sex);
+            gfc.sex = '男';
+            console.log(gfc.sex);
+            console.log(gfc);
+            console.log(Star.prototype);
+            console.log(Object.prototype);
+
+            // 构造函数中的this和原型对象的this,都指向new出来的实例对象
+            var that = null;
+            Star.prototype.dance = function() {
+                that = this;
+                console.log(this.name + '会跳舞');
+            }
+            gfc = new Star('郭富城', 20);
+            gfc.dance();
+            console.log(that === gfc);
+
+            // 通过原型为数组扩展内置方法
+            Array.prototype.sum = function() {
+                var result = 0;
+                for (var i = 0; i < this.length; i++) {
+                    result += this[i];
+                }
+                return result;
+            };
+            console.log([1, 2, 3].sum());;
+        })();
+
+        // 类
+        (function() {
+            // call
+            function fn(x, y) {
+                console.log(this);
+                console.log(x + y);
+            }
+            var o = { x: 1, y: 2 };
+            fn.call(o, o.x, o.y);
+
+            // 借用父构造函数继承属性
+            function Father(uname, age) {
+                this.uname = uname;
+                this.age = age;
+            }
+            function Son(uname, age, score) {
+                // this 指向子构造函数的对象实例
+                Father.call(this, uname, age);
+                this.score = score;
+            }
+            var son = new Son('刘', 18, 70);
+            console.log(son);
+
+            // 借用原型对象继承方法
+            Father.prototype.money = function() {
+                console.log('$ 10000000000');
+            }
+            //  这样直接赋值会有问题,如果修改了子原型对象,父原型对象也会跟着一起变化
+            // Son.prototype = Father.prototype;
+            Son.prototype = new Father();
+            // 如果利用对象的形式修改了原型对象,别忘了利用constructor 指回原来的构造函数
+            Son.prototype.constructor = Son;
+            Son.prototype.exam = function() {
+                console.log('儿子要考试');
+            }
+            son = new Son('李', 12, 90);
+            son.exam();
+            son.money();
+            console.log(son);
+            console.log(Father.prototype);
+            console.log(Son.prototype.constructor);
+        })();
+
+        // ES5新增方法
+        (function() {
+            // forEach 迭代(遍历) 数组
+            var arr = [1, 2, 3, 4];
+            var sum = 0;
+            arr.forEach(function(v, i, a) {
+                sum += v;
+            });
+            console.log(sum);
+
+            // map 创建一个新数组，这个新数组由原数组中的每个元素都调用一次提供的函数后的返回值组成
+            var result = arr.map(function(v, i, a) {
+                return v*2;
+            });
+            console.log(result);
+
+            // filter 筛选满足条件的元素
+            result = arr.filter(function(v, i, a) {
+                return v > 2;
+            });
+            console.log(result);
+
+            // some 是否有满足条件的元素
+            reuslt = arr.some(function(v, i, a) {
+                console.log(i);
+                return v > 3;
+            });
+            // 返回值是布尔值，只要查找到满足条件的一个元素就立马终止循环
+            console.log(reuslt);
+
+            // every 是否每一个元素都满足条件
+            reuslt = arr.every(function(v, i, a) {
+                console.log(i);
+                return v > 3;
+            });
+            // 返回值是布尔值，只要查找到不满足条件的一个元素就立马终止循环
+            console.log(reuslt);
+
+            // trim 方法去除字符串两侧空格
+            console.log(' xxx  yyy  '.trim());
+            var text = document.querySelector('.blank input');
+            var button = document.querySelector('.blank button');
+            var content = document.querySelector('.blank .content');
+            button.addEventListener('click', function() {
+                var value = text.value.trim();
+                if (value === '') {
+                    alert('请输入内容');
+                } else {
+                    content.innerHTML = value;
+                }
+            });
+
+            // Object.keys(对象) 获取到当前对象所有属性名
+            var o = {
+                a: 'a',
+                b: 'b',
+                c: 'c',
+                fn: function() {
+                    console.log('函数');
+                }
+            };
+            console.log(Object.keys(o));
+
+            // Object.defineProperty设置或修改对象中的属性
+            var obj = {
+                id: 1,
+                name: 'obj',
+                age: 18
+            }
+
+            console.log(obj.id); // 1
+            obj.id = 2;
+            console.log(obj.id); // 2
+
+            Object.defineProperty(obj, 'id', {
+                writable: false
+            });
+            obj.id = 3;
+            console.log(obj.id); // 2
+
+            Object.defineProperty(obj, 'score', {
+                value: 100, // 修改或新增的属性的值
+                writable: true, // 如果值为false 不允许修改这个属性值 默认值也是false
+                enumerable: true, // 如果值为false 则不允许遍历，默认的值是 false
+                configurable: true // 如果为false 则不允许删除这个属性，默认为false
+            });
+            console.log(obj.score); // 100
+            obj.score = 80;
+            console.log(obj.score); // 80
+            Object.defineProperty(obj, 'score', {
+                writable: false
+            });
+            obj.score = 100;
+            console.log(obj.score); // 80
+
+            console.log(Object.keys(obj)); // ['id', 'name', 'age', 'score']
+            Object.defineProperty(obj, 'score', {
+                enumerable: false
+            });
+            console.log(Object.keys(obj)); // ['id', 'name', 'age']
+
+            console.log(obj.score); // 80
+            delete obj.score;
+            console.log(obj.score); // undefined
+            Object.defineProperty(obj, 'score', {
+                value: 60,
+                configurable: false
+            });
+            console.log(obj.score); // 60
+            delete obj.score;
+            console.log(obj.score); // 60
+        })();
+
+
+        // 筛选商品案例
+        (function() {
+            var data = [{
+                id: 1,
+                pname: '小米',
+                price: 3999
+            }, {
+                id: 2,
+                pname: 'oppo',
+                price: 999
+            }, {
+                id: 3,
+                pname: '荣耀',
+                price: 1299
+            }, {
+                id: 4,
+                pname: '华为',
+                price: 1999
+            },];
+            
+            // 刷新数据
+            var tbody = document.querySelector('.goods table tbody');
+            reload(data);
+            function reload(data) {
+                tbody.innerHTML = null;
+                data.forEach(function(v) {
+                    var html = '<tr><td>' + v.id + '</td><td>' + v.pname + '</td><td>' + v.price + '</td></tr>';
+                    tbody.insertAdjacentHTML('beforeend', html);
+                });
+            }
+
+            // 价格查找
+            var price = document.querySelector('.goods .search .price');
+            var min = document.querySelector('.goods .search .min');
+            var max = document.querySelector('.goods .search .max');
+            var pname = document.querySelector('.goods .search .pname');
+            price.addEventListener('click', function() {
+                pname.value = '';
+                var arr = data.filter(function(v) {
+                    if (v.price >= min.value && v.price <= max.value) return v;
+                });
+                reload(arr);
+            });
+            // 名称查找
+            var produce = document.querySelector('.goods .search .produce');
+            produce.addEventListener('click', function() {
+                min.value = '';
+                max.value = '';
+                var value = null;
+                data.some(function(v) {
+                    if (pname.value === v.pname) {
+                        value = v;
+                        return true;
+                    }
+                });
+                if (value) {
+                    reload([value])
+                } else {
+                    pname.value = '';
+                    reload(data);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
