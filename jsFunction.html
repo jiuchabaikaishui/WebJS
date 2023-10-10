@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript 函数进阶</title>
+
+    <link rel="stylesheet" href="CSS/webMain.css">
+</head>
+<body>
+    <div class="main">
+        <h2>JavaScript 函数进阶</h2>
+        <h3>改变函数内部 this 指向</h3>
+        <button class="send">发送短信</button>
+        <div class="buttons">
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+        </div>
+        <h3>闭包</h3>
+        <div class="loop">利用闭包循环注册li点击事件
+            <ul>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // 函数的定义方式：
+            // 1、自定义函数(命名函数) 
+            function fn1() { console.log('fn1'); }
+            fn1();
+            // 2. 函数表达式 (匿名函数)
+            var fun = function() { console.log('fn2'); };
+            fun();
+            // 3. 利用 new Function('参数1','参数2', '函数体');
+            fun = new Function('a', 'b', 'console.log(a + b);');
+            fun(1, 2);
+
+            // 函数调用方式 略
+
+            // 函数内部的this指向 略
+        })();
+        (function() {
+            // call
+            var o = {
+                name: '张三'
+            };
+            function fn(a, b) {
+                console.log(this);
+                console.log(a + b);
+            }
+            fn(1, 2);
+            fn.call(o, 1, 2);
+            // 应用于：继承属性
+            function Father(firstname) {
+                this.firstname = firstname;
+            }
+            function Son(firstname, lastname) {
+                this.lastname = lastname;
+                Father.call(this, firstname);
+            }
+            var son = new Son('张', '三');
+            console.log(son);
+
+            // apply
+            function fn1(arr) {
+                console.log(arr);
+                var v = 0;
+                for (var i = 0; i < arr.length; i++) {
+                    v += arr[i];
+                }
+                console.log(this);
+                console.log(v);
+            }
+            fn.apply(o, [1, 2]);
+            fn1.apply(son, [[1, 2, 3, 4]]);
+            // 应用
+            var max = Math.max(1, 2, 3);
+            console.log(max);
+            max = Math.max.apply(o, [1, 2, 3]);
+            console.log(max);
+
+            // bind
+            var fun = fn.bind(o, 3, 3);
+            fun();
+            // 应用 修改定时器回调函数 this 指向
+            var send = document.querySelector('.send');
+            var time = 60;
+            send.onclick = function() {
+                this.disabled = true;
+                this.innerHTML = time;
+                setInterval(function(){
+                    time--;
+                    if (time < 1) {
+                        time = 60;
+                        this.innerHTML = '发送短信';
+                    } else {
+                        this.innerHTML = time;
+                    }
+                }.bind(this), 1000);
+            }
+            var buttons = document.querySelectorAll('.buttons button');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].onclick = function() {
+                    this.disabled = true;
+                    setTimeout(function(){
+                        this.disabled = false;
+                    }.bind(this), 3000);
+                };
+            }
+        })();
+
+        // 严格模式
+        (function() {
+            'use strict';
+            //n = 1; // 严格模式后使用未声明的变量 报错
+            var num = 1;
+            //delete num; // 严格模式不允许删除变量
+            // 严格模式下全局作用域中函数中的 this 是 undefined
+            console.log(this);
+            function Star(name) {
+                this.name = name;
+                console.log(this);
+            }
+            // Star('刘德华'); // 严格模式下,如果 构造函数不加new调用会报错, this 指向的是undefined.
+            new Star('刘德华');
+            setTimeout(function() {
+                console.log(this); // 严格模式下，定时器 this 还是指向 window
+            }, 1000);
+        })();
+
+        // 闭包
+        (function() {
+            // 闭包（closure）指有权访问另一个函数作用域中变量的函数。
+            function fn() {
+                var num = 10;
+                return function() {
+                    console.log(num);
+                }
+            }
+            fn()();
+
+            // 利用闭包的方式得到当前li 的索引号
+            var lis = document.querySelectorAll('.loop ul li');
+            for (var i = 0; i < lis.length; i++) {
+                (function(i) {
+                    lis[i].onclick = function() {
+                        console.log(i);
+                    };
+                })(i);
+            }
+
+            // 闭包应用-1秒钟之后,打印所有li元素的内容
+            for (var i = 0; i < lis.length; i++) {
+                (function(i) {
+                    setTimeout(function() {
+                        console.log(lis[i]);
+                    }, 1000);
+                })(i);
+            }
+
+            // 闭包应用-计算打车价格 
+            // 打车起步价13(3公里内),  之后每多一公里增加 5块
+            // 如果有拥堵情况,总价格多收取10块钱拥堵费
+            var car = (function() {
+                var start = 13;
+                var total = 0;
+                return {
+                    price: function(n) {
+                        if (n < 3) {
+                            total = start;
+                        } else {
+                            total = start + (n - 3)*5;
+                        }
+                        return total;
+                    },
+                    yd: function(flag) {
+                        return flag ? total + 10 : total;
+                    }
+                }
+            })();
+            console.log(car.price(5)); // 23
+            console.log(car.yd(true)); // 33
+            console.log(car.price(2)); // 13
+            console.log(car.yd(false)); // 13
+        })();
+
+        // 思考 打印的内容
+        var name = "The Window";
+        var object = {
+            name: "My Object",
+            getNameFunc: function() {
+                return function() {
+                    return this.name;
+                };
+            }
+        };
+        console.log(object.getNameFunc()()); // The Window
+
+        // var name = "The Window";
+        // var object = {
+        //     name: "My Object",
+        //     getNameFunc: function() {
+        //         var that = this;
+        //         return function() {
+        //             return that.name;
+        //         };
+        //     }
+        // };
+        // console.log(object.getNameFunc()()); // My Object
+
+        // 递归
+        (function() {
+            // 阶乘
+            function jc(n) {
+                if (n <= 1) {
+                    return 1;
+                } else {
+                    return n*jc(n - 1);
+                }
+            }
+            console.log(jc(1));
+            console.log(jc(2));
+            console.log(jc(3));
+
+            // 斐波那契数列
+            function fbnq(n) {
+                if (n === 1 || n === 2) {
+                    return 1
+                } else {
+                    return fbnq(n - 1) + fbnq(n - 2);
+                }
+            }
+            console.log(fbnq(3));
+            console.log(fbnq(6));
+
+            // 遍历数据
+            var data = [{
+                id: 1,
+                name: '家电',
+                goods: [{
+                    id: 11,
+                    gname: '冰箱',
+                    goods: [{
+                        id: 111,
+                        gname: '海尔'
+                    }, {
+                        id: 112,
+                        gname: '美的'
+                    }, ]
+                }, {
+                    id: 12,
+                    gname: '洗衣机'
+                }]
+            }, {
+                id: 2,
+                name: '服饰'
+            }];
+            function search(json, id) {
+                var r = {}
+                json.forEach(function(v) {
+                    return v;
+                    console.log('-------');
+                    if (v.id === id) {
+                        r = v;
+                    } else if (v.goods && v.goods.length > 0) {
+                        r = search(v.goods, id);
+                    }
+                });
+                return r;
+            }
+            console.log(search(data, 1));
+            console.log(search(data, 2));
+            console.log(search(data, 11));
+            console.log(search(data, 12));
+            console.log(search(data, 111));
+        })();
+
+        // 拷贝
+        (function() {
+            var obj = {
+                id: 1,
+                info: {
+                    age: 18
+                }
+            }
+            // 浅拷贝只是拷贝一层, 更深层次对象级别的只拷贝引用.
+            var o = {};
+            for (var k in obj) {
+                o[k] = obj[k];
+            }
+            o.id = 2;
+            o.info.age = 20;
+            console.log(obj);
+            console.log(o);
+
+            o = Object.assign(o, obj);
+            o.id = 2;
+            o.info.age = 20;
+            console.log(obj);
+            console.log(o);
+
+            // 深拷贝拷贝多层, 每一级别的数据都会拷贝.
+            function deepCopy(target, source) {
+                for (const key in source) {
+                    var value = source[key];
+                    if (value instanceof Array) {
+                        target[key] = [];
+                        deepCopy(target[key], value);
+                    } else if (value instanceof Object) {
+                        target[key] = {};
+                        deepCopy(target[key], value);
+                    } else { target[key] = value }
+                }
+            }
+            deepCopy(o, obj);
+            o.id = 5;
+            o.info.age = 10;
+            console.log(obj);
+            console.log(o);
+        })();
+    </script>
+</body>
+</html>
