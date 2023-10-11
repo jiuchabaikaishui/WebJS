@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正则表达式</title>
+
+    <link rel="stylesheet" href="CSS/webMain.css">
+
+    <style>
+        .uname span {
+            color: gray;
+        }
+        .uname span.correct {
+            color: green;
+        }
+        .uname span.error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h2>正则表达式</h2>
+        <h3>用户名表单验证案例</h3>
+        <div class="uname">
+            <input type="text"> <span>请输入用户名</span>
+        </div>
+        <h3>过滤敏感词汇案例</h3>
+        <div class="filter">
+            <textarea name="" id="" cols="30" rows="10" placeholder="请输入内容"></textarea> <button>替换</button>
+            <div class="content"></div>
+        </div>
+    </div>
+
+    <script>
+        // 创建正则表达式
+        var re = new RegExp(/ab/); //利用 RegExp对象来创建 正则表达式
+        console.log(re);
+        re = /bc/; // 利用字面量创建 正则表达式
+        console.log(re);
+
+        // 只要包含就返回ture
+        console.log(re.test('abc'));
+        console.log(re.test('ac'));
+
+        // 边界符
+        re = /^ab/; // 以ab开头
+        console.log(re.test('abc'));
+        console.log(re.test('bac'));
+        re = /ba$/; // 以ba结尾
+        console.log(re.test('ba'));
+        console.log(re.test('cba'));
+        re = /^ab$/; // 精确匹配ab
+        console.log(re.test('ab'));
+        console.log(re.test('abc'));
+        console.log(re.test('bca'));
+
+        // 字符类: [] 表示有一系列字符可供选择，只要匹配其中一个就可以了
+        re = /[abc]/;
+        console.log(re.test('cd'));
+        console.log(re.test('df'));
+        re = /[a-c]/; // - 表示的是a 到c 的范围 
+        console.log(re.test('cd'));
+        console.log(re.test('df'));
+        re = /[^0-9]/;// ^ 表示取反的意思 千万和 边界符 ^ 别混淆
+        console.log(re.test('abc'));
+        console.log(re.test('123'));
+
+        // 用户名表单验证案例
+        var input = document.querySelector('.uname input');
+        var style = document.querySelector('.uname span');
+        input.onblur = function() {
+            var re = /^[A-Za-z0-9_]{6,16}$/;
+            var v = this.value;
+            if (v.length > 0) {
+                console.log(v);
+                console.log(re.test(v));
+                if (re.test(v)) {
+                    style.className = 'correct';
+                    style.innerHTML = '用户名格式正确';
+                } else {
+                    style.className = 'error';
+                    style.innerHTML = '用户名格式错误';
+                }
+            } else {
+                style.className = '';
+            }
+        }
+        input.onkeydown = function(e) {
+            if (e.keyCode === 13) {
+                this.blur();
+            }
+        }
+
+        // ()表示优先级
+        re = /^(ab){2}/; // ab重复2次
+        console.log(re.test('ababc'));
+        console.log(re.test('abbc'));
+
+        // 过滤敏感词汇案例
+        var text = document.querySelector('.filter textarea');
+        var bt = document.querySelector('.filter button');
+        var content = document.querySelector('.filter .content')
+        bt.onclick = function() {
+            content.innerHTML = text.value.replace(/激情|gay/gi, '**');
+        }
+    </script>
+</body>
+</html>
