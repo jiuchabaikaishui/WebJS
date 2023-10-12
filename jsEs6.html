@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript ES6语法</title>
+
+    <link rel="stylesheet" href="CSS/webMain.css">
+</head>
+<body>
+    <div class="main">
+        <h2>JavaScript ES6语法</h2>
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+    </div>
+
+    <script>
+        // ES6 新增语法
+        (function() {
+            // console.log(a); // let声明的变量不存在变量提升
+            let a = 1;
+            {
+                let b = 2;
+            }
+            // console.log(b); // 只在所处于的块级有效
+            {
+                let a = 2;
+                console.log(a); // let声明的变量暂时性死区
+            }
+            console.log(a);
+
+            // 经典面试题：
+            (function() {
+                var arr = [];
+                for (var i = 0; i < 2; i++) {
+                    arr[i] = function() {
+                        console.log(i);
+                    }
+                }
+                arr[0](); // 2
+                arr[1](); //2
+            })();
+            (function() {
+                var arr = [];
+                for (let i = 0; i < 2; i++) {
+                    arr[i] = function() {
+                        console.log(i);
+                    }
+                }
+                arr[0](); // 0
+                arr[1](); //1
+            })();
+
+            // const 声明常量时必须赋值
+            const c = 3;
+            {
+                const d = 4; // 具有块级作用域
+            }
+            console.log(c);
+            // console.log(d);
+            // c = 4; // 常量赋值后，值不能修改
+        })();
+
+
+        // 解构赋值
+        (function() {
+            // 数组解构
+            let [a, b, c] = [1, 2, 3];
+            console.log(a, b, c);
+
+            // 对象解构
+            let obj = { name: 'a', age: 18 };
+            let { age, name } = obj;
+            console.log(name, age);
+            let { name: on, age: oa } = obj;
+            console.log(on, oa);
+        })();
+
+
+        // 箭头函数
+        (function() {
+            let fn = (p) => { console.log(p) };
+            fn(1);
+            // 如果形参只有一个，可以省略小括号;函数体中只有一句代码，且代码的执行结果就是返回值，可以省略大括号
+            fn = p => console.log(p);
+            fn(2);
+            fn = () => console.log('箭头函数'); // 没有形参，不可以省略小括号
+            fn();
+
+            // 箭头函数不绑定this关键字，箭头函数中的this，指向的是函数定义位置的上下文this
+            let obj = { name: '张三' };
+            function f() {
+                return () => console.log(this);
+            }
+            f.call(obj)(); // obj对象
+        })();
+        
+        // 思考
+        var a = 100;
+        let obj = {
+            a: 1,
+            b: () => { console.log(this.a); }
+        }
+        obj.b(); // 100
+
+        
+        (function() {
+            // 剩余参数
+            function sum (n, ...arg) {
+                console.log(n);
+                console.log(arg);
+                arg.forEach(v => {
+                    n += v;
+                });
+                return n;
+            }
+            console.log(sum(1, 2, 3, 4, 5, 6, 7));
+            // 剩余参数和解构配合使用：
+            let arr = [1, 2, 3];
+            let [a, ...b] = arr;
+            console.log(a);
+            console.log(b);
+
+            // Array 的扩展方法
+            // 展开语法
+            console.log(...arr);
+            // 合并数组
+            console.log([...arr, ...b]);
+            // 将类数组或可遍历对象转换为真正的数组
+            let lis = document.querySelectorAll('li');
+            console.log(lis);
+            let lisArr = [...lis];
+            lisArr.push(1);
+            console.log(lisArr);
+            // 构造函数方法：Array.from()
+            console.log(Array.from(arr, v => v*2));
+            // 实例方法：find()
+            console.log(arr.find(v => v > 1));
+            // 实例方法：findIndex()
+            console.log(arr.findIndex(v => v > 1));
+            // 实例方法：includes()
+            console.log(arr.includes(2));
+
+            // String 的扩展方法
+            // 模板字符串
+            let str = `123`;
+            console.log(str);
+            // 可以换行
+            str = `123
+456
+            789`;
+            console.log(str);
+            // 可以解析变量
+            console.log(`a${str}b`);
+            // 可以调用函数
+            function fn() {
+                return `abc`;
+            }
+            console.log(`1${fn()}2`);
+            // 实例方法：startsWith() 和 endsWith()
+            console.log(str.startsWith('123'));
+            console.log(str.endsWith('123'));
+            // 实例方法：repeat() 
+            console.log(str.repeat(2));
+
+            // Set 数据结构
+            let s = new Set([1, 2, 3, 4, 4]);
+            console.log(s);
+            s.add(5);
+            console.log(s);
+            s.delete(1);
+            console.log(s);
+            console.log(s.has(3));
+            s.forEach(v => console.log(v));
+            s.clear();
+            console.log(s);
+        })();
+    </script>
+</body>
+</html>
